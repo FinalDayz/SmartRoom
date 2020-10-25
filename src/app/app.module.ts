@@ -6,6 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {OverlayContainer} from '@angular/cdk/overlay';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+import {NgxGaugeModule} from 'ngx-gauge';
 
 @NgModule({
   declarations: [
@@ -17,6 +21,10 @@ import {OverlayContainer} from '@angular/cdk/overlay';
     BrowserAnimationsModule,
     MatSlideToggleModule,
     MatToolbarModule,
+    MatGridListModule,
+    MatCardModule,
+    MatListModule,
+    NgxGaugeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
