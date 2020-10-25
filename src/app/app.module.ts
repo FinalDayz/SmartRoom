@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {OverlayContainer} from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -20,4 +21,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+  constructor(overlayContainer: OverlayContainer) {
+    overlayContainer.getContainerElement().classList.add('Smartroom-theme');
+  }
+}
