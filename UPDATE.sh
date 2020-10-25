@@ -1,3 +1,4 @@
 git pull
 npm install
-ng build
+ng build --prod
+
