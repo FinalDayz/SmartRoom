@@ -1,16 +1,16 @@
-<div class="navbar bg-dark">
+<mat-toolbar>
+  <h1>Smartroom</h1>
+</mat-toolbar>
 
-  <h1 class="text-white-50">Stefan's smart room!</h1>
-</div>
 
-<div class="container">
+<div>
 
   <br>
 
-  <div class="row">
-    <div class="col col-6 col-sm-12">
+  <div>
+    <div>
       <h3>Inputs from room:</h3>
-      <table class="table">
+      <table>
         <tr>
           <th>Temperature:</th>
           <td>{{temp}}°</td>
@@ -21,10 +21,11 @@
         </tr>
       </table>
     </div>
-    <div class="col col-6 col-sm-12">
+    <div>
       <h3>Actions:</h3>
-      <button [ngClass]="{'bg-dark': heater == true, 'text-white': heater == true}" (click)="clickHeaterOn()">Turn heater on</button>
-      &nbsp;<button [ngClass]="{'bg-dark': heater == false, 'text-white': heater == false}" (click)="clickHeaterOff()">Turn heater off</button>
+      <mat-slide-toggle>Heater</mat-slide-toggle>
+      <button (click)="clickHeaterOn()">Turn heater on</button>
+      &nbsp;<button (click)="clickHeaterOff()">Turn heater off</button>
     </div>
   </div>
 
