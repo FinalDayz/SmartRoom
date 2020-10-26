@@ -1,13 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TemperatureGraphComponent } from './temperature-graph/temperature-graph.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {AppComponent} from './app.component';
+import {TemperatureGraphComponent} from './temperature-graph/temperature-graph.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {OverlayContainer} from '@angular/cdk/overlay';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import {OverlayContainer} from '@angular/cdk/overlay';
     BrowserAnimationsModule,
     MatSlideToggleModule,
     MatToolbarModule,
+    ChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

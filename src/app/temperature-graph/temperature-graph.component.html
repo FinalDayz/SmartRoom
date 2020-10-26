@@ -1,1 +1,11 @@
-<p>temperature-graph works!</p>
+<div style="display: block;">
+  <canvas baseChart width="800"
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [legend]="true"
+          [chartType]="'line'"
+          [options]="lineChartOptions"
+  ></canvas>
+</div>
+<!--        [colors]="lineChartColors"-->
+
