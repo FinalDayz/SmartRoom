@@ -1,0 +1,12 @@
+mat-card {
+  width: calc(100% - 70px);
+  height: calc(100% - 70px);
+}
+
+.room-data {
+  font-size: 1.3em;
+}
+
+ngx-gauge > .reading-block {
+  overflow: unset;
+}
