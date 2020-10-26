@@ -10,3 +10,28 @@ mat-card {
 ngx-gauge > .reading-block {
   overflow: unset;
 }
+mat-card-content {
+  margin-top: 5%;
+}
+
+mat-grid-tile {
+  height: fit-content;
+}
+
+@media(max-width: 400px) {
+  mat-card {
+    height: fit-content;
+  }
+
+  mat-grid-list {
+    rowheigt: fit;
+  }
+
+  body {
+    overflow: auto;
+  }
+
+  ngx-gauge {
+    transform: scale(0.7);
+  }
+}
