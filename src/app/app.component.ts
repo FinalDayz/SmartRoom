@@ -49,7 +49,7 @@ export class AppComponent implements OnInit{
   }
 
   setSizes() {
-    if(window.innerWidth <= 400) {
+    if(window.innerWidth <= 500) {
       this.cols = 1;
       this.rowHeight = '7.5rem';
       this.rowspan = 3;
