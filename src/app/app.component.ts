@@ -15,8 +15,14 @@ export class AppComponent implements OnInit{
   heater = null;
   temperatureThresholds = {
     0: {color: 'blue'},
-    19: {color: 'green'},
+    18: {color: 'green'},
     23: {color: 'red'}
+  };
+
+  humidityThresholds = {
+    0: {color: 'yellow'},
+    30: {color: 'green'},
+    50: {color: 'blue'}
   };
 
   constructor(private http: HttpClient) {}
@@ -24,7 +30,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.http.get('http://api.smartroom.codeweb.nl')
       .subscribe((data: { temperature: number, humidity: number }) => {
-        this.temp = data.temperature;
+        this.temp = Math.round(data.temperature*10)/10;
         this.humid = data.humidity;
 
       });

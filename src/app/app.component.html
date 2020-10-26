@@ -6,6 +6,9 @@
   <mat-grid-tile>
     <mat-card>
       <mat-card-title>Inputs from room</mat-card-title>
+      <br>
+      <br>
+      <br>
       <mat-card-content>
         <mat-grid-list cols="2" rowHeight="200px" class="room-data">
           <mat-grid-tile>
@@ -23,7 +26,8 @@
               label="Humidity"
               type="arch"
               max="100"
-              append="%"></ngx-gauge>
+              append="%"
+              [thresholds]="humidityThresholds"></ngx-gauge>
           </mat-grid-tile>
         </mat-grid-list>
       </mat-card-content>
@@ -32,6 +36,8 @@
   <mat-grid-tile>
     <mat-card>
       <mat-card-title>Actions</mat-card-title>
+      <br>
+      <br>
       <mat-card-content>
         <mat-slide-toggle [checked]="heater" (toggleChange)="handleToggleChange()">Turn heater {{this.heater ? 'off': 'on'}}</mat-slide-toggle>
       </mat-card-content>
