@@ -1,0 +1,12 @@
+.login-card {
+  max-width: 600px;
+  margin: 20vh auto auto;
+}
+
+.password {
+  width: 100%;
+}
+
+.error {
+  color: red;
+}

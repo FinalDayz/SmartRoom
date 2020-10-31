@@ -1,0 +1,21 @@
+<div class="wrapper">
+  <mat-card class="login-card">
+    <mat-card-title>Please login</mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <section>
+
+        <mat-form-field class="password">
+          <mat-label>API key</mat-label>
+          <input #password type="password" matInput>
+          <br>
+        </mat-form-field>
+      </section>
+      <span *ngIf="error!== null" class="error">{{ error }}</span>
+
+      <section>
+        <button (click)="login(password.value)" mat-raised-button color="primary">Login</button>
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>

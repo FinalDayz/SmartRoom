@@ -7,15 +7,15 @@ mat-card {
   font-size: 1.3em;
 }
 
-ngx-gauge > .reading-block {
-  overflow: unset;
-}
-mat-card-content {
-  margin-top: 5%;
-}
-
 mat-grid-tile {
   height: fit-content;
+}
+
+ngx-gauge > .reading-block {
+   overflow: unset;
+ }
+mat-card-content {
+  margin-top: 5%;
 }
 
 @media(max-width: 500px) {

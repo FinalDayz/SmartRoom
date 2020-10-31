@@ -1,41 +1,6 @@
 <mat-toolbar color="primary">
   <h1>Smartroom</h1>
 </mat-toolbar>
+<app-home-screen *ngIf="isLoggedIn"></app-home-screen>
+<app-login-screen *ngIf="!isLoggedIn" (successLogin)="this.successLogin()"></app-login-screen>
 
-<mat-grid-list [cols]="cols" [rowHeight]="rowHeight" (window:resize)="onResize($event)">
-  <mat-grid-tile [rowspan]="rowspan">
-    <mat-card>
-      <mat-card-title>Inputs from room</mat-card-title>
-      <mat-card-content>
-        <mat-grid-list [cols]="cols" [rowHeight]="rowHeight" (window:resize)="onResize($event)" class="room-data">
-          <mat-grid-tile>
-            <ngx-gauge
-              [value]="temp"
-              label="Temperature"
-              type="arch"
-              max="40"
-              append="C°"
-              [thresholds]="temperatureThresholds"></ngx-gauge>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <ngx-gauge
-              [value]="humid"
-              label="Humidity"
-              type="arch"
-              max="100"
-              append="%"
-              [thresholds]="humidityThresholds"></ngx-gauge>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-card>
-      <mat-card-title>Actions</mat-card-title>
-      <mat-card-content>
-        <mat-slide-toggle [checked]="heater" (toggleChange)="handleToggleChange()">Turn heater {{this.heater ? 'off': 'on'}}</mat-slide-toggle>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
