@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {ApiDataService} from "../../services/api-data.service";
 
 @Component({
   selector: 'app-humidity-gauge',
   templateUrl: './humidity-gauge.component.html',
   styleUrls: ['./humidity-gauge.component.css']
 })
-export class HumidityGaugeComponent implements OnInit {
-  humid = 0;
+export class HumidityGaugeComponent {
 
   humidityThresholds = {
     0: {color: 'yellow'},
@@ -15,13 +15,10 @@ export class HumidityGaugeComponent implements OnInit {
     50: {color: 'blue'}
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private data: ApiDataService) { }
 
-  ngOnInit(): void {
-    this.http.get('http://api.smartroom.codeweb.nl?key=' + localStorage.getItem('key'))
-      .subscribe((data: { humidity: number }) => {
-        this.humid = data.humidity;
-      });
+  getHumidity(): number {
+    return this.data.getHumidity();
   }
 
 }

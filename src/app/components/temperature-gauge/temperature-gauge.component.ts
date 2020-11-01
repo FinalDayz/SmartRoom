@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {ApiDataService} from "../../services/api-data.service";
 
 @Component({
   selector: 'app-temperature-gauge',
   templateUrl: './temperature-gauge.component.html',
   styleUrls: ['./temperature-gauge.component.css']
 })
-export class TemperatureGaugeComponent implements OnInit {
-  temp = 0;
+export class TemperatureGaugeComponent {
 
   temperatureThresholds = {
     0: {color: 'blue'},
@@ -15,13 +15,10 @@ export class TemperatureGaugeComponent implements OnInit {
     23: {color: 'red'}
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private data: ApiDataService) { }
 
-  ngOnInit(): void {
-    this.http.get('http://api.smartroom.codeweb.nl?key=' + localStorage.getItem('key'))
-      .subscribe((data: { temperature: number }) => {
-        this.temp = Math.round(data.temperature*10)/10;
-      });
+  getTemp(): number {
+    return Math.round(this.data.getTemperature()*10)/10;
   }
 
 }
