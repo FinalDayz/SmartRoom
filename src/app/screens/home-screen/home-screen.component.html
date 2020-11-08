@@ -1,23 +1,21 @@
 <mat-grid-list [cols]="cols" [rowHeight]="rowHeight" (window:resize)="onResize($event)">
-  <mat-grid-tile [rowspan]="rowspan">
+  <mat-grid-tile [rowspan]="1">
     <mat-card>
       <mat-card-title>Inputs from room</mat-card-title>
       <mat-card-content>
-        <mat-grid-list [cols]="cols" [rowHeight]="rowHeight" class="room-data">
+        <mat-grid-list [cols]="3" [rowHeight]="500" class="room-data">
 
-          <mat-grid-tile>
+<!--          <mat-grid-tile>-->
             <app-temperature-gauge></app-temperature-gauge>
-          </mat-grid-tile>
-
-          <mat-grid-tile>
+<!--          </mat-grid-tile>-->
+<!--          <mat-grid-tile>-->
             <app-humidity-gauge></app-humidity-gauge>
-          </mat-grid-tile>
-
+<!--          </mat-grid-tile>-->
         </mat-grid-list>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile>
+  <mat-grid-tile [rowspan]="rowspan">
     <mat-card>
       <mat-card-title>Actions</mat-card-title>
       <mat-card-content>
@@ -25,7 +23,7 @@
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile>
+  <mat-grid-tile [rowspan]="2">
     <mat-card>
       <mat-card-title>Graphs</mat-card-title>
       <mat-card-content>

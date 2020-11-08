@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeScreenComponent implements OnInit {
 
-  cols = 0;
-  rowHeight = null;
+  cols = 12;
+  rowHeight = 500;
   rowspan = 1;
 
   constructor() {}
@@ -25,13 +25,13 @@ export class HomeScreenComponent implements OnInit {
 
   setSizes() {
     if(window.innerWidth <= 500) {
-      this.cols = 1;
-      this.rowHeight = '7.5rem';
-      this.rowspan = 3;
+      // this.cols = 1;
+      // this.rowHeight = 500;
+      // this.rowspan = 3;
     } else {
-      this.cols = 2;
-      this.rowHeight = '2:1';
-      this.rowspan = 1;
+      // this.cols = 2;
+      // this.rowHeight = 500;
+      // this.rowspan = 1;
     }
   }
 
