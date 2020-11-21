@@ -1,6 +1,7 @@
-<mat-toolbar color="primary">
-  <h1>Smartroom</h1>
-</mat-toolbar>
+<app-header></app-header>
+<!--<mat-toolbar color="primary">-->
+<!--  <h1>Smartroom</h1>-->
+<!--</mat-toolbar>-->
 <app-home-screen *ngIf="isLoggedIn"></app-home-screen>
 <app-login-screen *ngIf="!isLoggedIn" (successLogin)="this.successLogin()"></app-login-screen>
 

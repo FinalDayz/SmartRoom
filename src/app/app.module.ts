@@ -19,6 +19,7 @@ import { HeaterInputComponent } from './components/heater-input/heater-input.com
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MatButtonModule} from "@angular/material/button";
     TemperatureGaugeComponent,
     HumidityGaugeComponent,
     HeaterInputComponent,
-    LoginScreenComponent
+    LoginScreenComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,6 @@ import {MatButtonModule} from "@angular/material/button";
 
 export class AppModule {
   constructor(overlayContainer: OverlayContainer) {
-    overlayContainer.getContainerElement().classList.add('Smartroom-theme');
+    // overlayContainer.getContainerElement().classList.add('Smartroom-theme');
   }
 }

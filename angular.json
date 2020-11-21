@@ -24,7 +24,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/custom-theme.scss",
+
+              "src/materializecss.scss",
+              "src/base.scss",
               "src/styles.css"
             ],
             "scripts": []
