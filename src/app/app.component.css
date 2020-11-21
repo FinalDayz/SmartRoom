@@ -1,37 +1,39 @@
-mat-card {
-  width: calc(100% - 70px);
-  height: calc(100% - 70px);
-}
 
-.room-data {
-  font-size: 1.3em;
-}
 
-mat-grid-tile {
-  height: fit-content;
-}
+/*mat-card {*/
+/*  width: calc(100% - 70px);*/
+/*  height: calc(100% - 70px);*/
+/*}*/
+
+/*.room-data {*/
+/*  font-size: 1.3em;*/
+/*}*/
+
+/*mat-grid-tile {*/
+/*  height: fit-content;*/
+/*}*/
 
 ngx-gauge > .reading-block {
    overflow: unset;
  }
-mat-card-content {
-  margin-top: 5%;
-}
+/*mat-card-content {*/
+/*  margin-top: 5%;*/
+/*}*/
 
-@media(max-width: 500px) {
-  mat-card {
-    height: fit-content;
-  }
+/*@media(max-width: 500px) {*/
+/*  mat-card {*/
+/*    height: fit-content;*/
+/*  }*/
 
-  mat-grid-list {
-    rowheigt: fit;
-  }
+/*  mat-grid-list {*/
+/*    rowheigt: fit;*/
+/*  }*/
 
-  body {
-    overflow: auto;
-  }
+/*  body {*/
+/*    overflow: auto;*/
+/*  }*/
 
-  ngx-gauge {
-    transform: scale(0.7);
-  }
-}
+/*  ngx-gauge {*/
+/*    transform: scale(0.7);*/
+/*  }*/
+/*}*/
