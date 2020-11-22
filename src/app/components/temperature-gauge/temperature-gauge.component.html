@@ -1,7 +1,9 @@
-<ngx-gauge
-  [value]="getTemp()"
-  label="Temperature"
-  type="arch"
-  max="40"
-  append="C°"
-  [thresholds]="temperatureThresholds"></ngx-gauge>
+<div class="gauge">
+  <ngx-gauge
+    [value]="getTemp()"
+    label="Temperature"
+    type="arch"
+    max="40"
+    append="C°"
+    [thresholds]="temperatureThresholds"></ngx-gauge>
+</div>

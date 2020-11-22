@@ -1,26 +1,26 @@
 <div class="row">
-  <div class="card-panel panel col s12 m6">
-    <mat-card-title>Inputs from room</mat-card-title>
-    <mat-card-content>
-      <mat-grid-list [cols]="cols" [rowHeight]="rowHeight" class="room-data">
-
-        <mat-grid-tile>
+  <div class="panel col s12 m6">
+    <div class="card-panel">
+      <h2>Inputs from room</h2>
+      <div class="row">
+        <div class="col s12">
           <app-temperature-gauge></app-temperature-gauge>
-        </mat-grid-tile>
-
-        <mat-grid-tile>
           <app-humidity-gauge></app-humidity-gauge>
-        </mat-grid-tile>
+        </div>
+        <div class="col s12 m6 l5 xl3">
 
-      </mat-grid-list>
-    </mat-card-content>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="card-panel panel col s12 m6">
-    <mat-card-title>Actions</mat-card-title>
-    <mat-card-content>
-      <app-heater-input></app-heater-input>
-    </mat-card-content>
+  <div class="panel col s12 m6">
+    <div class="card-panel">
+      <h2>Actions</h2>
+      <mat-card-content>
+        <app-heater-input></app-heater-input>
+      </mat-card-content>
+    </div>
   </div>
 </div>
 <!--  <mat-grid-tile>-->

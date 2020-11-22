@@ -1,7 +1,9 @@
-<ngx-gauge
-  [value]="getHumidity()"
-  label="Humidity"
-  type="arch"
-  max="100"
-  append="%"
-  [thresholds]="humidityThresholds"></ngx-gauge>
+<div class="gauge">
+  <ngx-gauge
+    [value]="getHumidity()"
+    label="Humidity"
+    type="arch"
+    max="100"
+    append="%"
+    [thresholds]="humidityThresholds"></ngx-gauge>
+</div>

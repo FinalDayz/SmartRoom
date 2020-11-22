@@ -1,3 +1,46 @@
 .panel {
-  height: 400px;
+  padding: 15px !important;
+}
+
+.card-panel > h2 {
+  margin-top: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.reading-block {
+  transform: translateY(58px) !important;
+}
+
+.gauge {
+  display: inline;
+  height: 170px;
+  width: 200px;
+  float: left;
+}
+
+h1 {
+  font-size: 2.25rem !important;
+}
+
+h2 {
+  font-size: 1.97rem !important;
+}
+
+h3 {
+  font-size: 1.72rem !important;
+}
+
+h4 {
+  font-size: 1.50rem !important;
+}
+
+h5 {
+  font-size: 1.31rem !important;
+}
+
+h6 {
+  font-size: 1.15rem !important;
 }
