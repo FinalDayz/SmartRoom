@@ -1,0 +1,51 @@
+<h3>Automations</h3>
+<ul class="collapsible">
+  <li *ngFor="let automation of automations">
+    <div class="collapsible-header">
+      {{ automation.name }}
+
+      <span *ngIf="automation.enabled" class="new badge" data-badge-caption="Enabled"></span>
+      <span *ngIf="!automation.enabled" class="new badge red" data-badge-caption="Disabled"></span>
+    </div>
+    <div class="collapsible-body row">
+      <div class="col s12">
+        <p>Condition(s)</p>
+      </div>
+      <div *ngFor="let ifCheck of automation.ifs">
+        <div class="input-field col m12 l6">
+          <select>
+            <option *ngFor="let input of inputTypes"
+                    value="{{input}}"
+                    [selected]="input==ifCheck.input">
+              {{input}}
+            </option>
+          </select>
+          <label>If input</label>
+        </div>
+        <div class="input-field col m12 l6">
+          <select>
+            <option *ngFor="let condition of conditionTypes"
+                    value="{{condition}}"
+                    [selected]="condition==ifCheck.condition">
+              {{condition}}
+            </option>
+          </select>
+          <label>If condition</label>
+        </div>
+      </div>
+      <hr class="col s12">
+      <div class="input-field col m12 l6">
+        <select>
+          <option *ngFor="let type of actionTypes"
+                  value="{{type}}"
+                  [selected]="type==automation.action.type">
+            {{type}}
+          </option>
+        </select>
+
+        <label>Action if condition is true</label>
+      </div>
+
+    </div>
+  </li>
+</ul>

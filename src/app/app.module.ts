@@ -20,6 +20,8 @@ import { LoginScreenComponent } from './screens/login-screen/login-screen.compon
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import { HeaderComponent } from './components/header/header.component';
+import { AutomationListComponent } from './components/automation-list/automation-list.component';
+import { AutomationComponent } from './components/automation/automation.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { HeaderComponent } from './components/header/header.component';
     HumidityGaugeComponent,
     HeaterInputComponent,
     LoginScreenComponent,
-    HeaderComponent
+    HeaderComponent,
+    AutomationListComponent,
+    AutomationComponent
   ],
   imports: [
     BrowserModule,

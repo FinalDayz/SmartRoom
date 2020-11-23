@@ -1,5 +1,9 @@
-<mat-slide-toggle
-  [checked]="heater"
-  (toggleChange)="handleToggleChange()">
-  Turn heater {{this.heater ? 'off' : 'on'}}
-</mat-slide-toggle>
+<h3>Heater</h3>
+<div class="switch" (change)="handleToggleChange()">
+  <label>
+    Off
+    <input type="checkbox">
+    <span class="lever"></span>
+    On
+  </label>
+</div>
