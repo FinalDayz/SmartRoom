@@ -4,6 +4,13 @@ import Action, {ActionType} from "../../models/Action";
 import Automation from "../../models/Automation";
 import {ConditionType, InputType} from "../../models/If";
 
+export enum Protocol {
+  POST,
+  GET,
+  DELETE,
+  OPTIONS,
+}
+
 @Component({
   selector: 'app-automation-list',
   templateUrl: './automation-list.component.html',
@@ -13,8 +20,8 @@ export class AutomationListComponent implements OnInit {
 
   public automations: Array<Automation> = [];
   public actionTypes = Object.keys(ActionType);
-  public inputTypes = Object.keys(InputType);
-  public conditionTypes = Object.keys(ConditionType);
+  public inputTypes = Object.keys(InputType).filter(k => {return k.search("^[0-9]+$") == -1});
+  public conditionTypes = Object.keys(ConditionType).filter(k => {return k.search("^[0-9]+$") == -1});
 
   constructor() { }
 
@@ -26,6 +33,8 @@ export class AutomationListComponent implements OnInit {
     //      outDuration: 300,
     //    });
     // });
+
+    console.log(Object.keys(Protocol));
 
 
 
