@@ -11,39 +11,7 @@
       <div class="col s12">
         <p>Condition(s)</p>
       </div>
-
-      <div *ngFor="let ifCheck of automation.ifs">
-        <div class="ifBlock row col s12">
-          <div class="input-field col m12 l6">
-            <select>
-              <option *ngFor="let input of inputTypes"
-                      value="{{input}}"
-                      [selected]="input==inputTypes[ifCheck.input]">
-                {{input}}
-
-              </option>
-            </select>
-            <label>If input</label>
-          </div>
-          <div class="input-field col m12 l6">
-            <select>
-              <option *ngFor="let condition of conditionTypes"
-                      value="{{condition}}"
-                      [selected]="condition.toString()==conditionTypes[ifCheck.condition]">
-                {{condition}}
-              </option>
-            </select>
-            <label>If condition</label>
-          </div>
-          <div class="input-field col s7">
-            <input placeholder="Placeholder" type="text" class="validate"
-                   [value]="ifCheck.value ? ifCheck.value : ''">
-            <label>If value</label>
-          </div>
-          <a class="btn col s2" (click)="addIf(ifCheck.and)">+ AND</a>
-          <a class="btn col s2 red push-s1" (click)="removeIf(automation.ifs, ifCheck)">DEL</a>
-        </div>
-      </div>
+      <app-if-block [ifArr]="automation.ifs" [depth]="1"></app-if-block>
       <a class="btn col s12" (click)="addIf(automation.ifs)">+ OR</a>
 
       <p class="col s12">&nbsp;</p>

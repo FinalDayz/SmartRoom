@@ -21,7 +21,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import { HeaderComponent } from './components/header/header.component';
 import { AutomationListComponent } from './components/automation-list/automation-list.component';
-import { AutomationComponent } from './components/automation/automation.component';
+import { IfBlockComponent } from './components/automation-list/if-block/if-block.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { AutomationComponent } from './components/automation/automation.componen
     LoginScreenComponent,
     HeaderComponent,
     AutomationListComponent,
-    AutomationComponent
+    IfBlockComponent,
   ],
   imports: [
     BrowserModule,

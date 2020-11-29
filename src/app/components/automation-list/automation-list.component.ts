@@ -21,8 +21,6 @@ export class AutomationListComponent implements OnInit {
   public automations: Array<Automation> = [];
   public actionTypesData = ActionType;
   public actionTypes = Object.keys(ActionType);
-  public inputTypes = Object.keys(InputType).filter(k => {return k.search("^[0-9]+$") == -1});
-  public conditionTypes = Object.keys(ConditionType).filter(k => {return k.search("^[0-9]+$") == -1});
 
   constructor() { }
 
@@ -35,11 +33,20 @@ export class AutomationListComponent implements OnInit {
         input: InputType.temperature,
         condition: ConditionType[">"],
         value: 25,
-      },{
-        input: InputType.heater,
-        condition: ConditionType["=="],
-        value: 1,
+        and: [
+          {
+            input: InputType.heater,
+            condition: ConditionType["=="],
+            value: 1,
+          }
+        ]
+      },
+      {
+        input: InputType.temperature,
+        condition: ConditionType[">"],
+        value: 30,
       }
+
     ];
 
     overHeatingNotification.ifs.push(new If());
@@ -70,11 +77,6 @@ export class AutomationListComponent implements OnInit {
     this.automations.push(heaterOnNotification);
   };
 
-  removeIf(ifArray: Array<If>, self: If) {
-    console.log(ifArray.indexOf(self), 1);
-    ifArray.splice(ifArray.indexOf(self), 1);
-  }
-
   addIf(ifArray: Array<If>) {
     if(!ifArray) {
       ifArray = [];
@@ -82,7 +84,6 @@ export class AutomationListComponent implements OnInit {
     ifArray.push(new If());
     setTimeout(() => {
       M.AutoInit();
-
     }, 100);
   }
 

@@ -1,0 +1,39 @@
+@import '../../../colors';
+
+.ifBlock {
+  border-left: 2px solid $primary-color;
+}
+
+.ifBlock {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 5px;
+}
+
+.ifBlock-depth-1 > .ifBlock {
+  background-color: rgb(217, 255, 255);
+}
+
+.ifBlock-depth-2 > .ifBlock {
+  background-color: rgb(213, 255, 192);
+}
+
+.ifBlock-depth-3 > .ifBlock {
+  background-color: rgb(255, 213, 252);
+}
+
+.ifBlock-depth-4 > .ifBlock {
+  background-color: rgb(255, 200, 194);
+}
+
+.ifBlock-depth-5 > .ifBlock {
+  background-color: rgb(255, 222, 151);
+}
+
+.ifBlock-depth-6 > .ifBlock {
+  background-color: rgb(210, 210, 255);
+}
+
+.OrAndTxt {
+  margin: 0;
+}

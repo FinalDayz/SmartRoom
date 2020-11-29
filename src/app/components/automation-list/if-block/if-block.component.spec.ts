@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AutomationComponent } from './automation.component';
+import { IfBlockComponent } from './if-block.component';
 
-describe('AutomationComponent', () => {
-  let component: AutomationComponent;
-  let fixture: ComponentFixture<AutomationComponent>;
+describe('IfBlockComponent', () => {
+  let component: IfBlockComponent;
+  let fixture: ComponentFixture<IfBlockComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AutomationComponent ]
+      declarations: [ IfBlockComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AutomationComponent);
+    fixture = TestBed.createComponent(IfBlockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

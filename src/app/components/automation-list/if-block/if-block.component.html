@@ -1,0 +1,36 @@
+<div *ngFor="let ifCheck of ifArr; last as isLast" class="ifBlock-depth-{{depth}}">
+  <div class="ifBlock row col s12">
+    <div class="input-field col m12 l6">
+      <select>
+        <option *ngFor="let input of inputTypes"
+                value="{{input}}"
+                [selected]="input==inputTypes[ifCheck.input]">
+          {{input}}
+
+        </option>
+      </select>
+      <label>If input</label>
+    </div>
+    <div class="input-field col m12 l3">
+      <select>
+        <option *ngFor="let condition of conditionTypes"
+                value="{{condition}}"
+                [selected]="condition.toString()==conditionTypes[ifCheck.condition]">
+          {{condition}}
+        </option>
+      </select>
+      <label>If condition</label>
+    </div>
+    <div class="input-field col s12 l3">
+      <input placeholder="Placeholder" type="text" class="validate"
+             [value]="ifCheck.value ? ifCheck.value : ''">
+      <label>If value</label>
+    </div>
+    <h2 *ngIf="!!ifCheck.and && ifCheck.and.length" class="OrAndTxt">AND</h2>
+    <app-if-block [depth]="depth+1" [ifArr]="ifCheck.and"></app-if-block>
+    <a class="btn col s2" (click)="addIf(ifCheck)">+ {{!!ifCheck.and && ifCheck.and.length >= 1 ?"OR":"AND" }}</a>
+    <a class="btn col s2 red push-s1" (click)="removeIf(ifArr, ifCheck)">DEL</a>
+
+  </div>
+  <h2 class="OrAndTxt">&nbsp;{{isLast ? '' : 'OR'}}</h2>
+</div>
