@@ -14,7 +14,7 @@ export enum Protocol {
 @Component({
   selector: 'app-automation-list',
   templateUrl: './automation-list.component.html',
-  styleUrls: ['./automation-list.component.css']
+  styleUrls: ['./automation-list.component.scss']
 })
 export class AutomationListComponent implements OnInit {
 
