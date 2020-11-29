@@ -35,7 +35,7 @@
       </div>
       <hr class="col s12">
       <div class="input-field col m12 l6">
-        <select>
+        <select (change)="changeAction(automation, $event)">
           <option *ngFor="let type of actionTypes"
                   value="{{type}}"
                   [selected]="type==automation.action.type">

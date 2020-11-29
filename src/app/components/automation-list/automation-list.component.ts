@@ -92,6 +92,12 @@ export class AutomationListComponent implements OnInit {
 
   };
 
+  changeAction(automation: Automation, event) {
+    automation.action = event.target.value;
+    console.log(automation);
+
+  }
+
 
   ngAfterContentInit() {
     M.AutoInit();

@@ -2,7 +2,6 @@ export enum Type {
   string="string", boolean="boolean", number="number",
 }
 
-
 export const ActionType = {
   "heater": {
     isOn: Type.boolean
