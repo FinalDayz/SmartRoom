@@ -2,7 +2,7 @@ import {Component, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/cor
 import * as M from "materialize-css/dist/js/materialize";
 import Action, {ActionType} from "../../models/Action";
 import Automation from "../../models/Automation";
-import {ConditionType, InputType} from "../../models/If";
+import If, {ConditionType, InputType} from "../../models/If";
 
 export enum Protocol {
   POST,
@@ -19,6 +19,7 @@ export enum Protocol {
 export class AutomationListComponent implements OnInit {
 
   public automations: Array<Automation> = [];
+  public actionTypesData = ActionType;
   public actionTypes = Object.keys(ActionType);
   public inputTypes = Object.keys(InputType).filter(k => {return k.search("^[0-9]+$") == -1});
   public conditionTypes = Object.keys(ConditionType).filter(k => {return k.search("^[0-9]+$") == -1});
@@ -26,38 +27,32 @@ export class AutomationListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   var elems = document.querySelectorAll('.collapsible');
-    //    M.Collapsible.init(elems, {
-    //      inDuration: 300,
-    //      outDuration: 300,
-    //    });
-    // });
 
-    console.log(Object.keys(Protocol));
-
-
-
-    const notification = new Automation();
-    notification.name = "overheating";
-    notification.ifs = [
+    const overHeatingNotification = new Automation();
+    overHeatingNotification.name = "overheating notification";
+    overHeatingNotification.ifs = [
       {
         input: InputType.temperature,
         condition: ConditionType[">"],
         value: 25,
+      },{
+        input: InputType.heater,
+        condition: ConditionType["=="],
+        value: 1,
       }
     ];
 
+    overHeatingNotification.ifs.push(new If());
 
-    notification.enabled = true;
-    notification.action = new Action();
-    notification.action.type = "notification";
-    notification.action.data.title = "Overheating!";
-    notification.action.data.content = "Temperature reached high, please take action!";
+    overHeatingNotification.enabled = true;
+    overHeatingNotification.action = new Action();
+    overHeatingNotification.action.type = "notification";
+    overHeatingNotification.action.data.title = "Overheating!";
+    overHeatingNotification.action.data.content = "Temperature reached high, please take action!";
 
-    const humidNotification = new Automation();
-    humidNotification.name = "Heater on notification";
-    humidNotification.ifs = [
+    const heaterOnNotification = new Automation();
+    heaterOnNotification.name = "Heater on notification";
+    heaterOnNotification.ifs = [
       {
         input: InputType.heater,
         condition: ConditionType["=="],
@@ -65,39 +60,41 @@ export class AutomationListComponent implements OnInit {
       }
     ];
 
-    humidNotification.enabled = false;
-    humidNotification.action = new Action();
-    humidNotification.action.type = "notification";
-    humidNotification.action.data.title = "Heater on";
-    humidNotification.action.data.content = "The heater is turned on";
+    heaterOnNotification.enabled = false;
+    heaterOnNotification.action = new Action();
+    heaterOnNotification.action.type = "notification";
+    heaterOnNotification.action.data.title = "Heater on";
+    heaterOnNotification.action.data.content = "The heater is turned on";
 
-    this.automations.push(humidNotification);
-    this.automations.push(notification);
-
-    console.log(this.automations);
-
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   var elems = document.querySelectorAll('select');
-    //   var instances = M.FormSelect.init(elems, {});
-    // });
-
-    // alert(2 );
-
-    console.log(Object.keys(ConditionType));
-    setTimeout(() => {
-
-
-    }, 1000);
-
+    this.automations.push(overHeatingNotification);
+    this.automations.push(heaterOnNotification);
   };
 
-  changeAction(automation: Automation, event) {
-    automation.action = event.target.value;
-    console.log(automation);
-
+  removeIf(ifArray: Array<If>, self: If) {
+    console.log(ifArray.indexOf(self), 1);
+    ifArray.splice(ifArray.indexOf(self), 1);
   }
 
+  addIf(ifArray: Array<If>) {
+    if(!ifArray) {
+      ifArray = [];
+    }
+    ifArray.push(new If());
+    setTimeout(() => {
+      M.AutoInit();
+
+    }, 100);
+  }
+
+  ngAfterViewChecked() {
+    M.updateTextFields();
+  }
+
+  changeAction(automation: Automation, event) {
+    automation.action.type = event.target.value;
+    console.log(automation.action.type);
+    console.log(this.actionTypesData[automation.action.type]);
+  }
 
   ngAfterContentInit() {
     M.AutoInit();

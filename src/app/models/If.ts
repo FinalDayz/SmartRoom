@@ -10,5 +10,5 @@ export default class If {
   input: InputType;
   condition: ConditionType;
   value: number|string;
-  and?: If;
+  and?: Array<If> = [];
 }
