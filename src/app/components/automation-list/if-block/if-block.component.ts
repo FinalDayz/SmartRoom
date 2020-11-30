@@ -20,7 +20,6 @@ export class IfBlockComponent implements OnInit {
   }
 
   removeIf(ifArray: Array<If>, self: If) {
-    console.log(ifArray.indexOf(self), 1);
     ifArray.splice(ifArray.indexOf(self), 1);
   }
 
@@ -34,7 +33,6 @@ export class IfBlockComponent implements OnInit {
       M.AutoInit();
     }, 100);
 
-    console.log(ifCondition.and);
   }
 
 }

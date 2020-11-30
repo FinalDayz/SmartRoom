@@ -1,37 +1,41 @@
 @import '../../../colors';
 
 .ifBlock {
-  border-left: 2px solid $primary-color;
+  border-left: 1px solid $secondary-color;
 }
 
 .ifBlock {
   padding-top: 20px;
   padding-bottom: 20px;
   margin-bottom: 5px;
+  -webkit-box-shadow: -1px -1px 5px 1px rgba(0,0,0,0.18);
+  -moz-box-shadow: -1px -1px 5px 1px rgba(0,0,0,0.18);
+  box-shadow: -1px -1px 5px 1px rgba(0,0,0,0.18);
 }
 
 .ifBlock-depth-1 > .ifBlock {
-  background-color: rgb(217, 255, 255);
+
+  background-color: lighten(rgb(217, 255, 255), 3%);
 }
 
 .ifBlock-depth-2 > .ifBlock {
-  background-color: rgb(213, 255, 192);
+  background-color: lighten(rgb(213, 255, 192), 3%);
 }
 
 .ifBlock-depth-3 > .ifBlock {
-  background-color: rgb(255, 213, 252);
+  background-color: lighten(rgb(255, 213, 252), 3%);
 }
 
 .ifBlock-depth-4 > .ifBlock {
-  background-color: rgb(255, 200, 194);
+  background-color: lighten(rgb(255, 200, 194), 3%);
 }
 
 .ifBlock-depth-5 > .ifBlock {
-  background-color: rgb(255, 222, 151);
+  background-color: lighten(rgb(255, 222, 151), 3%);
 }
 
 .ifBlock-depth-6 > .ifBlock {
-  background-color: rgb(210, 210, 255);
+  background-color: lighten(rgb(210, 210, 255), 3%);
 }
 
 .OrAndTxt {

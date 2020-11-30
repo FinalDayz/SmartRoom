@@ -26,11 +26,10 @@
              [value]="ifCheck.value ? ifCheck.value : ''">
       <label>If value</label>
     </div>
-    <h2 *ngIf="!!ifCheck.and && ifCheck.and.length" class="OrAndTxt">AND</h2>
+    <h3 *ngIf="!!ifCheck.and && ifCheck.and.length" class="OrAndTxt">AND</h3>
     <app-if-block [depth]="depth+1" [ifArr]="ifCheck.and"></app-if-block>
     <a class="btn col s2" (click)="addIf(ifCheck)">+ {{!!ifCheck.and && ifCheck.and.length >= 1 ?"OR":"AND" }}</a>
     <a class="btn col s2 red push-s1" (click)="removeIf(ifArr, ifCheck)">DEL</a>
-
   </div>
-  <h2 class="OrAndTxt">&nbsp;{{isLast ? '' : 'OR'}}</h2>
+  <h3 class="OrAndTxt">&nbsp;{{isLast ? '' : 'OR'}}</h3>
 </div>
