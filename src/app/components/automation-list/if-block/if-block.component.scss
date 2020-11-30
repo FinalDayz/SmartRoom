@@ -15,27 +15,39 @@
 
 .ifBlock-depth-1 > .ifBlock {
 
-  background-color: lighten(rgb(217, 255, 255), 3%);
+  background-color: lighten(rgb(249, 192, 224), 3%);
 }
 
 .ifBlock-depth-2 > .ifBlock {
-  background-color: lighten(rgb(213, 255, 192), 3%);
+  background-color: lighten(rgb(192, 225, 248), 3%);
 }
 
 .ifBlock-depth-3 > .ifBlock {
-  background-color: lighten(rgb(255, 213, 252), 3%);
+  background-color: lighten(rgb(226, 248, 192), 3%);
 }
 
 .ifBlock-depth-4 > .ifBlock {
-  background-color: lighten(rgb(255, 200, 194), 3%);
+  background-color: lighten(rgb(230, 190, 245), 3%);
 }
 
 .ifBlock-depth-5 > .ifBlock {
-  background-color: lighten(rgb(255, 222, 151), 3%);
+  background-color: lighten(rgb(191, 246, 229), 3%);
 }
 
 .ifBlock-depth-6 > .ifBlock {
-  background-color: lighten(rgb(210, 210, 255), 3%);
+  background-color: lighten(rgb(246, 229, 191);
+}
+
+.ifBlock-depth-7 > .ifBlock {
+  background-color: rgb(208, 203, 254);
+}
+
+.ifBlock-depth-8 > .ifBlock {
+  background-color: rgb(204, 254, 207);
+}
+
+.ifBlock-depth-9 > .ifBlock {
+  background-color: rgb(255, 206, 205), 3%);
 }
 
 .OrAndTxt {
