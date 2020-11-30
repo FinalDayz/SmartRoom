@@ -11,27 +11,39 @@
 }
 
 .ifBlock-depth-1 > .ifBlock {
-  background-color: rgb(217, 255, 255);
+  background-color: rgb(249, 192, 224);
 }
 
 .ifBlock-depth-2 > .ifBlock {
-  background-color: rgb(213, 255, 192);
+  background-color: rgb(192, 225, 248);
 }
 
 .ifBlock-depth-3 > .ifBlock {
-  background-color: rgb(255, 213, 252);
+  background-color: rgb(226, 248, 192);
 }
 
 .ifBlock-depth-4 > .ifBlock {
-  background-color: rgb(255, 200, 194);
+  background-color: rgb(230, 190, 245);
 }
 
 .ifBlock-depth-5 > .ifBlock {
-  background-color: rgb(255, 222, 151);
+  background-color: rgb(191, 246, 229);
 }
 
 .ifBlock-depth-6 > .ifBlock {
-  background-color: rgb(210, 210, 255);
+  background-color: rgb(246, 229, 191);
+}
+
+.ifBlock-depth-7 > .ifBlock {
+  background-color: rgb(208, 203, 254);
+}
+
+.ifBlock-depth-8 > .ifBlock {
+  background-color: rgb(204, 254, 207);
+}
+
+.ifBlock-depth-9 > .ifBlock {
+  background-color: rgb(255, 206, 205);
 }
 
 .OrAndTxt {
