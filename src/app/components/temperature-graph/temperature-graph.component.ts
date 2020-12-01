@@ -61,13 +61,13 @@ export class TemperatureGraphComponent implements OnInit {
         }
       });
 
-    this.http.get('http://api.smartroom.codeweb.nl:3031/get/list/humidity/' + (Date.now() - fromDate.getTime()) + "/" + (Date.now() - toDate.getTime())
+    this.http.get('http://api.smartroom.codeweb.nl:3031/get/list/connection/' + (Date.now() - fromDate.getTime()) + "/" + (Date.now() - toDate.getTime())
       + "?key=" + localStorage.getItem('key'))
       .subscribe((data: [{ millis: number, value: number }]) => {
         const newData = {
           backgroundColor: '#10Da10',
           yAxisID: 'right-y-axis',
-          label: "humidity",
+          label: "connection",
           data: []
         };
 
@@ -75,10 +75,11 @@ export class TemperatureGraphComponent implements OnInit {
         for (const reading of data) {
           const dateTime = new Date(reading.millis);
           //this.chartLabels.push(dateTime.getHours()+":"+dateTime.getMinutes());
-          newData.data.push(reading.value);
+          newData.data.push(reading.value*100);
         }
         this.chartData.push(newData);
       });
+
 
     this.chartLabels = ["label 1", "label2", "label3", "label3", "label3", "label3", "label3"];
     this.chartData = [
