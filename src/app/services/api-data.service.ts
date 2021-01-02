@@ -8,7 +8,7 @@ export class ApiDataService {
 
   public liveData: { temperature: number, humidity: number, pressure: number };
   public url;
-  private defaultUrl = 'http://api.smartroom.codeweb.nl?key=';
+  private defaultUrl = 'http://api.smartroom.codeweb.nl';
 
   constructor(private http: HttpClient) {
     this.setCurrentTab();
@@ -23,7 +23,11 @@ export class ApiDataService {
 
   private fetchData(): void {
     console.log(this.http);
-    this.http.get(this.url + localStorage.getItem('key'))
+    this.http.get(this.url, {
+      headers: {
+        "Authorization": localStorage.getItem('key')
+      }
+    })
       .subscribe((data: { temperature: number, humidity: number, pressure: number, }) => {
         this.liveData = data;
       });
@@ -47,7 +51,7 @@ export class ApiDataService {
         this.url = this.defaultUrl;
         break;
       case 'valerie':
-        this.url = 'http://api.monitor-room.codeweb.nl?key=';
+        this.url = 'http://api.monitor-room.codeweb.nl';
         break;
       default:
         this.url = this.defaultUrl;

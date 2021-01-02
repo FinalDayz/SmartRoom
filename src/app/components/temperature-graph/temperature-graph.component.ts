@@ -46,8 +46,12 @@ export class TemperatureGraphComponent implements OnInit {
     toDate.setMinutes(0);
     const fromDate = new Date(toDate.getTime() - hours * 60 * 60 * 1000);
     this.http.get('http://api.smartroom.codeweb.nl:3031/get/list/temperature/'
-      + (Date.now() - fromDate.getTime()) + '/' + (Date.now() - toDate.getTime())
-      + '?key=' + localStorage.getItem('key'))
+      + (Date.now() - fromDate.getTime()) + '/' + (Date.now() - toDate.getTime()),
+      {
+        headers: {
+          "Authorization": localStorage.getItem('key')
+        }
+      })
       .subscribe((data: [{ millis: number, value: number }]) => {
         this.chartData = [{
           yAxisID: 'left-y-axis',
@@ -63,8 +67,12 @@ export class TemperatureGraphComponent implements OnInit {
       });
 
     this.http.get('http://api.smartroom.codeweb.nl:3031/get/list/connection/'
-      + (Date.now() - fromDate.getTime()) + '/' + (Date.now() - toDate.getTime())
-      + '?key=' + localStorage.getItem('key'))
+      + (Date.now() - fromDate.getTime()) + '/' + (Date.now() - toDate.getTime()),
+      {
+        headers: {
+          "Authorization": localStorage.getItem('key')
+        }
+      })
       .subscribe((data: [{ millis: number, value: number }]) => {
         const newData = {
           backgroundColor: '#10Da10',

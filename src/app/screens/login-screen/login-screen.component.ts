@@ -19,7 +19,12 @@ export class LoginScreenComponent implements OnInit {
 
   login(pass: string) {
     try {
-      fetch('http://api.smartroom.codeweb.nl/status?key=' + pass)
+      fetch('http://api.smartroom.codeweb.nl/status',
+        {
+          headers: {
+            "Authorization": pass
+          }
+        })
         .then((res: Response) => {
           if (res.status < 200 || res.status > 299) {
             this.errorLogin(true);

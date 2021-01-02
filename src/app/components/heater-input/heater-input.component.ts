@@ -12,7 +12,12 @@ export class HeaterInputComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get('http://api.smartroom.codeweb.nl/status?key=' + localStorage.getItem('key'))
+    this.http.get('http://api.smartroom.codeweb.nl/status',
+      {
+        headers: {
+          "Authorization": localStorage.getItem('key')
+        }
+      })
       .subscribe((data: { heater: boolean }) => {
         this.heater = data.heater;
       });
