@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Label} from "ng2-charts";
-import {ChartDataSets, ChartOptions} from "chart.js";
+import {HttpClient} from '@angular/common/http';
+import {Label} from 'ng2-charts';
+import {ChartDataSets, ChartOptions} from 'chart.js';
 
 @Component({
   selector: 'app-temperature-graph',
@@ -45,43 +45,45 @@ export class TemperatureGraphComponent implements OnInit {
     const toDate = new Date();
     toDate.setMinutes(0);
     const fromDate = new Date(toDate.getTime() - hours * 60 * 60 * 1000);
-    this.http.get('http://api.smartroom.codeweb.nl:3031/get/list/temperature/' + (Date.now() - fromDate.getTime()) + "/" + (Date.now() - toDate.getTime())
-      + "?key=" + localStorage.getItem('key'))
+    this.http.get('http://api.smartroom.codeweb.nl:3031/get/list/temperature/'
+      + (Date.now() - fromDate.getTime()) + '/' + (Date.now() - toDate.getTime())
+      + '?key=' + localStorage.getItem('key'))
       .subscribe((data: [{ millis: number, value: number }]) => {
         this.chartData = [{
           yAxisID: 'left-y-axis',
-          label: "temperature",
+          label: 'temperature',
           data: []
         }];
         this.chartLabels = [];
         for (const reading of data) {
           const dateTime = new Date(reading.millis);
-          this.chartLabels.push(dateTime.getHours() + ":" + dateTime.getMinutes());
+          this.chartLabels.push(dateTime.getHours() + ':' + dateTime.getMinutes());
           this.chartData[0].data.push(reading.value);
         }
       });
 
-    this.http.get('http://api.smartroom.codeweb.nl:3031/get/list/connection/' + (Date.now() - fromDate.getTime()) + "/" + (Date.now() - toDate.getTime())
-      + "?key=" + localStorage.getItem('key'))
+    this.http.get('http://api.smartroom.codeweb.nl:3031/get/list/connection/'
+      + (Date.now() - fromDate.getTime()) + '/' + (Date.now() - toDate.getTime())
+      + '?key=' + localStorage.getItem('key'))
       .subscribe((data: [{ millis: number, value: number }]) => {
         const newData = {
           backgroundColor: '#10Da10',
           yAxisID: 'right-y-axis',
-          label: "connection",
+          label: 'connection',
           data: []
         };
 
-        //this.chartLabels = [];
+        // this.chartLabels = [];
         for (const reading of data) {
           const dateTime = new Date(reading.millis);
-          //this.chartLabels.push(dateTime.getHours()+":"+dateTime.getMinutes());
-          newData.data.push(reading.value*100);
+          // this.chartLabels.push(dateTime.getHours()+":"+dateTime.getMinutes());
+          newData.data.push(reading.value * 100);
         }
         this.chartData.push(newData);
       });
 
 
-    this.chartLabels = ["label 1", "label2", "label3", "label3", "label3", "label3", "label3"];
+    this.chartLabels = ['label 1', 'label2', 'label3', 'label3', 'label3', 'label3', 'label3'];
     this.chartData = [
       {data: [20, 20, 21, 21, 22, 20, 16], label: 'This week'},
     ];

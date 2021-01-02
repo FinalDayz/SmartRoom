@@ -24,7 +24,6 @@
               "src/assets"
             ],
             "styles": [
-
               "src/materializecss.scss",
               "src/base.scss",
               "src/styles.css"

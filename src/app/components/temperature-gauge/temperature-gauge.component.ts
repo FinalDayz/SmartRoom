@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {ApiDataService} from "../../services/api-data.service";
+import {HttpClient} from '@angular/common/http';
+import {ApiDataService} from '../../services/api-data.service';
 
 @Component({
   selector: 'app-temperature-gauge',
@@ -18,7 +18,7 @@ export class TemperatureGaugeComponent {
   constructor(private data: ApiDataService) { }
 
   getTemp(): number {
-    return Math.round(this.data.getTemperature()*10)/10;
+    return Math.round(this.data.getTemperature() * 10) / 10;
   }
 
 }

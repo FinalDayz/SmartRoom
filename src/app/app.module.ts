@@ -17,11 +17,12 @@ import { TemperatureGaugeComponent } from './components/temperature-gauge/temper
 import { HumidityGaugeComponent } from './components/humidity-gauge/humidity-gauge.component';
 import { HeaterInputComponent } from './components/heater-input/heater-input.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
-import {MatInputModule} from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 import { HeaderComponent } from './components/header/header.component';
 import { AutomationListComponent } from './components/automation-list/automation-list.component';
 import { IfBlockComponent } from './components/automation-list/if-block/if-block.component';
+import { PressureGaugeComponent } from './components/pressure-gauge/pressure-gauge.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { IfBlockComponent } from './components/automation-list/if-block/if-block
     HeaderComponent,
     AutomationListComponent,
     IfBlockComponent,
+    PressureGaugeComponent,
   ],
   imports: [
     BrowserModule,
