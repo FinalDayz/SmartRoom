@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ApiDataService} from '../../services/api-data.service';
 
 @Component({
   selector: 'app-home-screen',
@@ -11,7 +12,8 @@ export class HomeScreenComponent implements OnInit {
   rowHeight = 500;
   rowspan = 1;
 
-  constructor() {}
+  constructor(private apiDataService: ApiDataService) {
+  }
 
   ngOnInit(): void {
 
@@ -19,12 +21,12 @@ export class HomeScreenComponent implements OnInit {
     this.setSizes();
   }
 
-  onResize(event) {
+  onResize(event): void {
     this.setSizes();
   }
 
-  setSizes() {
-    if(window.innerWidth <= 500) {
+  setSizes(): void {
+    if (window.innerWidth <= 500) {
       // this.cols = 1;
       // this.rowHeight = 500;
       // this.rowspan = 3;
@@ -35,4 +37,7 @@ export class HomeScreenComponent implements OnInit {
     }
   }
 
+  public setCurrentTab(tab: string): void {
+    this.apiDataService.setCurrentTab(tab);
+  }
 }

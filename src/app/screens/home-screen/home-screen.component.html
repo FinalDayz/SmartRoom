@@ -1,26 +1,57 @@
 <div class="row">
-  <div class="panel col s12 m12 l6">
-    <div class="card-panel">
-      <h2>Inputs from room</h2>
-      <div class="row">
-        <div class="col s12">
-          <app-temperature-gauge></app-temperature-gauge>
-          <app-humidity-gauge></app-humidity-gauge>
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s6"><a href="#stefan" (click)="setCurrentTab('stefan')">Stefan</a></li>
+      <li class="tab col s6"><a href="#valerie" (click)="setCurrentTab('valerie')">Valerie</a></li>
+    </ul>
+  </div>
+
+  <div id="stefan" class="row">
+    <div class="panel col s12 m12 l6">
+      <div class="card-panel">
+        <h2>Inputs from room</h2>
+        <div class="row">
+          <div class="col s12">
+            <app-pressure-gauge></app-pressure-gauge>
+            <app-temperature-gauge></app-temperature-gauge>
+            <app-humidity-gauge></app-humidity-gauge>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="panel col s12 m12 l6">
-    <div class="card-panel">
-      <h2>Actions</h2>
-      <app-heater-input></app-heater-input>
-      <app-automation-list></app-automation-list>
+    <div class="panel col s12 m12 l6">
+      <div class="card-panel">
+        <h2>Actions</h2>
+        <app-heater-input></app-heater-input>
+        <app-automation-list></app-automation-list>
+      </div>
+    </div>
+    <div class="panel col s12 m12 l6">
+      <div class="card-panel">
+        <h2>Graphs</h2>
+        <app-temperature-graph></app-temperature-graph>
+      </div>
     </div>
   </div>
-  <div class="panel col s12 m12 l6">
-    <div class="card-panel">
-      <h2>Graphs</h2>
-      <app-temperature-graph></app-temperature-graph>
+
+  <div id="valerie" class="row">
+    <div class="panel col s12 m12 l6">
+      <div class="card-panel">
+        <h2>Inputs from room</h2>
+        <div class="row">
+          <div class="col s12">
+            <app-pressure-gauge></app-pressure-gauge>
+            <app-temperature-gauge></app-temperature-gauge>
+            <app-humidity-gauge></app-humidity-gauge>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel col s12 m12 l6">
+      <div class="card-panel">
+        <h2>Graphs</h2>
+        <app-temperature-graph></app-temperature-graph>
+      </div>
     </div>
   </div>
 
