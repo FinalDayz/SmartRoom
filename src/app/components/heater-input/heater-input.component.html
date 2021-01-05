@@ -2,7 +2,7 @@
 <div class="switch" (change)="handleToggleChange()">
   <label>
     Off
-    <input type="checkbox">
+    <input type="checkbox" [checked]="this.heater">
     <span class="lever"></span>
     On
   </label>
