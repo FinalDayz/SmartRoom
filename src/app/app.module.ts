@@ -23,6 +23,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { AutomationListComponent } from './components/automation-list/automation-list.component';
 import { IfBlockComponent } from './components/automation-list/if-block/if-block.component';
 import { PressureGaugeComponent } from './components/pressure-gauge/pressure-gauge.component';
+import { ToxicGasBarComponent } from './components/toxic-gas-bar/toxic-gas-bar.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PressureGaugeComponent } from './components/pressure-gauge/pressure-gau
     AutomationListComponent,
     IfBlockComponent,
     PressureGaugeComponent,
+    ToxicGasBarComponent,
   ],
   imports: [
     BrowserModule,
