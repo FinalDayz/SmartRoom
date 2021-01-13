@@ -6,6 +6,7 @@ interface FetchData {
   humidity: number;
   pressure: number;
   gas?: number;
+  lastConnection?: string
 }
 
 @Injectable({
@@ -26,6 +27,7 @@ export class ApiDataService {
       humidity: 0,
       pressure: 0,
       gas: 0,
+      lastConnection: '',
     };
     setInterval(() => this.fetchData(), 5000);
     this.fetchData();
@@ -56,6 +58,10 @@ export class ApiDataService {
 
   getToxicGas(): number|null {
     return this.liveData.gas;
+  }
+
+  getLastConnection(): string|null {
+    return this.liveData.lastConnection;
   }
 
   public setCurrentTab(tab?: string): void {

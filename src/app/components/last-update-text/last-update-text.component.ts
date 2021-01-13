@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiDataService} from "../../services/api-data.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-last-update-text',
@@ -11,9 +12,19 @@ export class LastUpdateTextComponent implements OnInit {
   constructor(private apiDataService: ApiDataService) { }
 
   ngOnInit(): void {
+
   }
 
   getLastConnectionTime() {
-    return "";
+    const dateTime = moment(
+      this.apiDataService.getLastConnection(),
+      "DD-MM-YYYY hh:mm:ss"
+    );
+
+    if(!dateTime.isValid()) {
+      return "Not known";
+    }
+
+    return dateTime.format("ddd HH:mm:ss");
   }
 }
