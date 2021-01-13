@@ -1,0 +1,12 @@
+<div class="barWrapper">
+
+  <h4 class="title">Toxic gas</h4>
+  <div class="gasValueWrapper">
+    <div class="gasValueEmpty" [ngStyle]="{'flex': geInvertGasPercentageCss()}">
+      <h4 class="percentage">{{ (getGasPercentageDisplay()) }}%</h4>
+    </div>
+    <div class="gasValueBar" [ngStyle]="{'background-color': getBarColor(), 'flex': getGasPercentageCss()}">
+
+    </div>
+  </div>
+</div>
