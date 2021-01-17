@@ -83,6 +83,7 @@ export class AutomationListComponent implements OnInit {
        this.automations = automations;
 
        this.timeoutInit();
+       console.log(automations[0]);
      });
   };
 
@@ -91,7 +92,7 @@ export class AutomationListComponent implements OnInit {
       ifArray = [];
     }
     ifArray.push(new If());
-    this.timeoutInit();;
+    this.timeoutInit();
   }
 
   ngAfterViewChecked() {
@@ -143,7 +144,7 @@ export class AutomationListComponent implements OnInit {
 
   private handleRequest(event: Observable<Object>) {
     event.subscribe( res => {
-      console.log(res);
+      this.ngOnInit();
     });
   }
 }

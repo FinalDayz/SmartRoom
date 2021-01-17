@@ -65,11 +65,12 @@ export class ApiDataService {
     })
       .subscribe((data: Array<Automation>) => {
         this.automations = data;
+        const decodedAutomations = [];
         for(const automation of this.automations) {
-          this.decodeAutomation(automation);
+          decodedAutomations.push(this.decodeAutomation(automation));
         }
 
-        this.automationGotData(this.automations);
+        this.automationGotData(decodedAutomations);
       });
   }
 
@@ -127,14 +128,11 @@ export class ApiDataService {
     this.fetchData();
   }
 
-  private encodeAutomation(automation: any) {
-    automation.ifs = JSON.stringify(automation.ifs);
-    automation.action = JSON.stringify([automation.action]);
-  }
-
   private decodeAutomation(automation: any) {
     automation.ifs = JSON.parse(automation.ifs);
     automation.action = JSON.parse(automation.action)[0];
+
+    return automation;
   }
 
   deleteAutomation(automation: Automation) {
@@ -146,29 +144,33 @@ export class ApiDataService {
       });
   }
 
-  modifyAutomation(automation: Automation) {
-    this.encodeAutomation(automation);
+  modifyAutomation(automation: Automation|any) {
+    automation.action = [automation.action];
+
     const event = this.http.put(this.currentConfig.url+"/automation/modify/"+automation.id,
-      automation,
+      JSON.stringify(automation),
       {
         headers: {
           "Authorization": localStorage.getItem('key')
         }
       });
-    this.decodeAutomation(automation);
+
+    automation.action = automation.action[0];
     return event;
   }
 
-  addAutomation(automation: Automation) {
-    this.encodeAutomation(automation);
+  addAutomation(automation: Automation|any) {
+    automation.action = [automation.action];
+
     const event = this.http.post(this.currentConfig.url+"/automation/add",
-      automation,
+      JSON.stringify(automation),
       {
       headers: {
         "Authorization": localStorage.getItem('key')
       }
     });
-    this.decodeAutomation(automation);
+
+    automation.action = automation.action[0];
     return event;
   }
 }

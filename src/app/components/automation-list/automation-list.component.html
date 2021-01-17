@@ -13,6 +13,7 @@
         <div class="col s12 m6">
           <label for="automation_{{automation.id}}_name">Name automation</label>
           <input placeholder="Name" id="automation_{{automation.id}}_name" type="text" class="validate"
+                 name="automation_{{automation.id}}_name"
                  [value]="automation.name" [(ngModel)]="automation.name" name="automation_{{automation.id}}_name">
         </div>
           <div class="col s12 m6">
@@ -38,8 +39,9 @@
 
         <br/>
         <p>&nbsp;</p>
-        <div class="input-field col s12">
-          <select (change)="changeAction(automation, $event)">
+        <div class="input-field col s12" *ngIf="automation.action">
+          <select [(ngModel)]="automation.action.type" (change)="changeAction(automation, $event)"
+                  [ngModelOptions]="{standalone: true}">
             <option value=""></option>
             <option *ngFor="let type of actionTypes"
                     value="{{type}}"
