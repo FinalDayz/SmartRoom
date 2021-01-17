@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {ApiDataService, FetchData} from "../../services/api-data.service";
 
 @Component({
   selector: 'app-heater-input',
@@ -7,20 +8,26 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./heater-input.component.css']
 })
 export class HeaterInputComponent implements OnInit {
-  heater = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private data: ApiDataService,
+    private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
-    this.http.get('http://api.smartroom.codeweb.nl/status',
-      {
-        headers: {
-          "Authorization": localStorage.getItem('key')
-        }
-      })
-      .subscribe((data: { heater: boolean }) => {
-        this.heater = data.heater;
-      });
+    // this.http.get('http://api.smartroom.codeweb.nl/status',
+    //   {
+    //     headers: {
+    //       "Authorization": localStorage.getItem('key')
+    //     }
+    //   })
+    //   .subscribe((data: { heater: boolean }) => {
+    //     this.heater = data.heater;
+    //   });
+  }
+
+  getHeater() {
+    return this.data.getHeater();
   }
 
   setHeater(state: boolean): void {
@@ -29,13 +36,13 @@ export class HeaterInputComponent implements OnInit {
         key: localStorage.getItem('key'),
         heater: state
       })
-      .subscribe((data: { heater: boolean }) => {
-        this.heater = data.heater;
+      .subscribe((data: FetchData) => {
+        this.data.gotData(data);
       });
   }
 
   handleToggleChange(): void {
-    this.setHeater(!this.heater);
+    this.setHeater(!this.getHeater());
   }
 
 }

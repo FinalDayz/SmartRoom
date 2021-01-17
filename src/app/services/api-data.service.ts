@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import Automation from "../models/Automation";
-import {Observable, Subscribable, Subscriber} from "rxjs";
 
-interface FetchData {
+export interface FetchData {
+  heater?: number;
   temperature: number;
   humidity: number;
   pressure: number;
@@ -48,6 +48,7 @@ export class ApiDataService {
       pressure: 0,
       gas: 0,
       lastConnection: '',
+      heater: 0,
     };
     setInterval(() => this.fetchData(), 5000);
     this.fetchData();
@@ -55,6 +56,10 @@ export class ApiDataService {
     this.automationPromise = new Promise<Array<Automation>>((acc, _) => {
       this.automationGotData = acc;
     })
+  }
+
+  gotData(data: FetchData) {
+    this.liveData = data;
   }
 
   private fetchAutomations() {
@@ -83,6 +88,10 @@ export class ApiDataService {
       .subscribe((data: FetchData) => {
         this.liveData = data;
       });
+  }
+
+  getHeater(): number {
+    return this.liveData.heater
   }
 
   getAutomations(): Array<Automation> {
