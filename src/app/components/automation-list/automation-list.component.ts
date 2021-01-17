@@ -79,9 +79,10 @@ export class AutomationListComponent implements OnInit {
     // this.automations.push(overHeatingNotification);
     // this.automations.push(heaterOnNotification);
      this.data.automationPromise.then((automations: Array<Automation>) => {
-       console.log("CALLBACK?!");
+
        this.automations = automations;
-       console.log(automations);
+
+       this.timeoutInit();
      });
   };
 
@@ -90,9 +91,7 @@ export class AutomationListComponent implements OnInit {
       ifArray = [];
     }
     ifArray.push(new If());
-    setTimeout(() => {
-      M.AutoInit();
-    }, 100);
+    this.timeoutInit();;
   }
 
   ngAfterViewChecked() {
