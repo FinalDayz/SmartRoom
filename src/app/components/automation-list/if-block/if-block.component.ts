@@ -9,6 +9,7 @@ import * as M from "materialize-css/dist/js/materialize";
 })
 export class IfBlockComponent implements OnInit {
 
+  @Input() id: number;
   @Input() ifArr: Array<If>;
   @Input() depth: number;
   public inputTypes = Object.keys(InputType).filter(k => {return k.search("^[0-9]+$") == -1});

@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import Automation from "../models/Automation";
+import {Observable, Subscribable, Subscriber} from "rxjs";
 
 interface FetchData {
   temperature: number;
@@ -9,6 +11,11 @@ interface FetchData {
   lastConnection?: string
 }
 
+interface Config {
+  url: string,
+  hasAutomations: boolean
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,9 +23,22 @@ interface FetchData {
 
 export class ApiDataService {
 
+  public static  readonly valerieConfig: Config = {
+    url: "http://api.monitor-room.codeweb.nl",
+    hasAutomations: false,
+  };
+
+  public static readonly stefanConfig: Config = {
+    url: "http://api.smartroom.codeweb.nl",
+    hasAutomations: true,
+  };
+
+  private automations: Array<Automation> = [];
   public liveData: FetchData;
-  public url;
-  private readonly defaultUrl = 'http://api.smartroom.codeweb.nl';
+  private currentConfig: Config = ApiDataService.stefanConfig;
+
+  public automationPromise: Promise<Array<Automation>>;
+  private automationGotData: (auto: Array<Automation>) => void;
 
   constructor(private http: HttpClient) {
     this.setCurrentTab();
@@ -31,10 +51,30 @@ export class ApiDataService {
     };
     setInterval(() => this.fetchData(), 5000);
     this.fetchData();
+    this.fetchAutomations();
+    this.automationPromise = new Promise<Array<Automation>>((acc, _) => {
+      this.automationGotData = acc;
+    })
+  }
+
+  private fetchAutomations() {
+    this.http.get(this.currentConfig.url+"/automation/all", {
+      headers: {
+        "Authorization": localStorage.getItem('key')
+      }
+    })
+      .subscribe((data: Array<Automation>) => {
+        this.automations = data;
+        for(const automation of this.automations) {
+          this.decodeAutomation(automation);
+        }
+
+        this.automationGotData(this.automations);
+      });
   }
 
   private fetchData(): void {
-    this.http.get(this.url, {
+    this.http.get(this.currentConfig.url, {
       headers: {
         "Authorization": localStorage.getItem('key')
       }
@@ -42,6 +82,10 @@ export class ApiDataService {
       .subscribe((data: FetchData) => {
         this.liveData = data;
       });
+  }
+
+  getAutomations(): Array<Automation> {
+    return this.automations;
   }
 
   getTemperature(): number {
@@ -64,19 +108,67 @@ export class ApiDataService {
     return this.liveData.lastConnection;
   }
 
+  private setConfig(config) {
+    this.currentConfig = config;
+  }
+
   public setCurrentTab(tab?: string): void {
     switch (tab) {
       case 'stefan':
-        this.url = this.defaultUrl;
+        this.setConfig(ApiDataService.stefanConfig);
         break;
       case 'valerie':
-        this.url = 'http://api.monitor-room.codeweb.nl';
+        this.setConfig(ApiDataService.valerieConfig);
         break;
       default:
-        this.url = this.defaultUrl;
+        this.setConfig(ApiDataService.stefanConfig);
         break;
     }
     this.fetchData();
   }
 
+  private encodeAutomation(automation: any) {
+    automation.ifs = JSON.stringify(automation.ifs);
+    automation.action = JSON.stringify([automation.action]);
+  }
+
+  private decodeAutomation(automation: any) {
+    automation.ifs = JSON.parse(automation.ifs);
+    automation.action = JSON.parse(automation.action)[0];
+  }
+
+  deleteAutomation(automation: Automation) {
+    return this.http.delete(this.currentConfig.url+"/automation/delete/"+automation.id,
+      {
+        headers: {
+          "Authorization": localStorage.getItem('key')
+        }
+      });
+  }
+
+  modifyAutomation(automation: Automation) {
+    this.encodeAutomation(automation);
+    const event = this.http.put(this.currentConfig.url+"/automation/modify/"+automation.id,
+      automation,
+      {
+        headers: {
+          "Authorization": localStorage.getItem('key')
+        }
+      });
+    this.decodeAutomation(automation);
+    return event;
+  }
+
+  addAutomation(automation: Automation) {
+    this.encodeAutomation(automation);
+    const event = this.http.post(this.currentConfig.url+"/automation/add",
+      automation,
+      {
+      headers: {
+        "Authorization": localStorage.getItem('key')
+      }
+    });
+    this.decodeAutomation(automation);
+    return event;
+  }
 }

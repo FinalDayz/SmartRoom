@@ -25,6 +25,7 @@ import { IfBlockComponent } from './components/automation-list/if-block/if-block
 import { PressureGaugeComponent } from './components/pressure-gauge/pressure-gauge.component';
 import { ToxicGasBarComponent } from './components/toxic-gas-bar/toxic-gas-bar.component';
 import { LastUpdateTextComponent } from './components/last-update-text/last-update-text.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -42,20 +43,21 @@ import { LastUpdateTextComponent } from './components/last-update-text/last-upda
     ToxicGasBarComponent,
     LastUpdateTextComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatToolbarModule,
-    MatGridListModule,
-    MatCardModule,
-    MatListModule,
-    NgxGaugeModule,
-    ChartsModule,
-    MatInputModule,
-    MatButtonModule,
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule,
+        MatToolbarModule,
+        MatGridListModule,
+        MatCardModule,
+        MatListModule,
+        NgxGaugeModule,
+        ChartsModule,
+        MatInputModule,
+        MatButtonModule,
+        FormsModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

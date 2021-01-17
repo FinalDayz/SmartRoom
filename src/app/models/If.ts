@@ -1,5 +1,5 @@
 export enum InputType {
-  "temperature", "heater"
+  "temperature", "heater", "pressure", "gas", "humidity"
 }
 
 export enum ConditionType {

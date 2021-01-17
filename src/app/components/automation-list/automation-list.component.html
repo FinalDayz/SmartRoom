@@ -1,61 +1,92 @@
 <h3>Automations</h3>
-<ul class="collapsible">
-  <li *ngFor="let automation of automations">
-    <div class="collapsible-header">
-      {{ automation.name }}
+<form>
+  <ul class="collapsible">
+    <li *ngFor="let automation of automations">
+      <div class="collapsible-header">
+        {{ automation.name }}
 
-      <span *ngIf="automation.enabled" class="new badge" data-badge-caption="Enabled"></span>
-      <span *ngIf="!automation.enabled" class="new badge red" data-badge-caption="Disabled"></span>
-    </div>
-    <div class="collapsible-body row">
-      <div class="col s12">
-        <p>Condition(s)</p>
+        <span *ngIf="automation.enabled" class="new badge" data-badge-caption="Enabled"></span>
+        <span *ngIf="!automation.enabled" class="new badge red" data-badge-caption="Disabled"></span>
       </div>
-      <app-if-block [ifArr]="automation.ifs" [depth]="1"></app-if-block>
-      <a class="btn col s12" (click)="addIf(automation.ifs)">+ OR</a>
-
-      <p class="col s12">&nbsp;</p>
-      <p>&nbsp;</p>
-      <div class="input-field col s12">
-        <select (change)="changeAction(automation, $event)">
-          <option *ngFor="let type of actionTypes"
-                  value="{{type}}"
-                  [selected]="type==automation.action.type">
-            {{type}}
-          </option>
-        </select>
-        <label>Action if condition is true</label>
-      </div>
-      <div class="col s12 row">
-        <div class="col s12" *ngFor="let actionData of actionTypesData[automation.action.type]  | keyvalue">
-          <div [ngSwitch]="actionData.value">
-
-            <div class="switch" *ngSwitchCase="'boolean'">
+      <div class="collapsible-body row">
+        <div class="col s12 row">
+        <div class="col s12 m6">
+          <label for="automation_{{automation.id}}_name">Name automation</label>
+          <input placeholder="Name" id="automation_{{automation.id}}_name" type="text" class="validate"
+                 [value]="automation.name" [(ngModel)]="automation.name" name="automation_{{automation.id}}_name">
+        </div>
+          <div class="col s12 m6">
+            <div class="switch">
               <p>
-                <label for="data_bool_{{actionData.key}}">
-                  {{actionData.key}}
-                </label>
+                <label for="automation_{{automation.id}}_enabled">Enabled</label>
               </p>
               <label>
                 Off
-                <input type="checkbox" id="data_bool_{{actionData.key}}"
-                       [checked]="!!automation.action.data[actionData.key]">
+                <input type="checkbox" id="automation_{{automation.id}}_enabled"
+                       [checked]="!!automation.enabled" (change)="automation.enabled = !automation.enabled">
                 <span class="lever"></span>
                 On
               </label>
             </div>
 
-            <div class="input-field" *ngSwitchDefault>
-              <input placeholder="Placeholder" id="data_input_{{actionData.key}}" type="text" class="validate"
-                     [value]="automation.action.data[actionData.key] ? automation.action.data[actionData.key] : ''">
-              <label for="data_input_{{actionData.key}}">{{actionData.key}}</label>
-            </div>
           </div>
+
+          <p class="col s12">Condition(s)</p>
+        </div>
+        <app-if-block [id]="automation.id" [ifArr]="automation.ifs" [depth]="1"></app-if-block>
+        <a class="btn col s12" (click)="addIf(automation.ifs)">+ OR</a>
+
+        <br/>
+        <p>&nbsp;</p>
+        <div class="input-field col s12">
+          <select (change)="changeAction(automation, $event)">
+            <option value=""></option>
+            <option *ngFor="let type of actionTypes"
+                    value="{{type}}"
+                    [selected]="automation.action && automation.action.type && type==automation.action.type">
+              {{type}}
+            </option>
+          </select>
+          <label>Action if condition is true</label>
+        </div>
+        <div class="col s12 row">
+        <span *ngIf="automation.action && automation.action.type">
+          <div class="col s12" *ngFor="let actionData of actionTypesData[automation.action.type]  | keyvalue">
+            <div [ngSwitch]="actionData.value">
+
+              <div class="switch" *ngSwitchCase="'boolean'">
+                <p>
+                  <label for="data_bool_{{actionData.key}}">
+                    {{actionData.key}}
+                  </label>
+                </p>
+                <label>
+                  Off
+                  <input type="checkbox" id="data_bool_{{actionData.key}}"
+                         [checked]="!!automation.action.data[actionData.key]"
+                         (change)="automation.action.data[actionData.key] = !automation.action.data[actionData.key]">
+                  <span class="lever"></span>
+                  On
+                </label>
+              </div>
+
+              <div class="input-field" *ngSwitchDefault>
+                <input placeholder="Placeholder" id="data_input_{{actionData.key}}" type="text" class="validate"
+                       name="data_input_{{actionData.key}}"
+                       [(ngModel)]="automation.action.data[actionData.key]"
+                       >
+                <label for="data_input_{{actionData.key}}">{{actionData.key}}</label>
+              </div>
+            </div>
+        </div>
+      </span>
+        </div>
+        <div class="col s12">
+          <a class="waves-effect waves-light btn save-automation" (click)="save(automation)">Save automation</a>&nbsp;
+          <a class="waves-effect waves-light btn save-automation red" (click)="delete(automation)">Delete automation</a>
         </div>
       </div>
-      <div class="col s12">
-        <a class="waves-effect waves-light btn save-automation">Save automation</a>
-      </div>
-    </div>
-  </li>
-</ul>
+    </li>
+  </ul>
+</form>
+<a class="waves-effect waves-light btn" (click)="addNew()">Add</a>

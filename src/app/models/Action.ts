@@ -2,6 +2,16 @@ export enum Type {
   string="string", boolean="boolean", number="number",
 }
 
+export const DefaultActionData = {
+  "heater": {
+    isOn: false
+  },
+  "notification": {
+    title: '',
+    content: '',
+  }
+};
+
 export const ActionType = {
   "heater": {
     isOn: Type.boolean
