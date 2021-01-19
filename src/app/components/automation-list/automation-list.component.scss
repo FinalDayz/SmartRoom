@@ -1,3 +1,12 @@
 .save-automation {
   margin-bottom: 20px;
 }
+
+.saved-automation-body {
+  background-color: rgba(0, 255, 127, 0.5);
+  transition: background-color 0.1s;
+}
+
+.automation-body {
+  transition: background-color 0.2s;
+}

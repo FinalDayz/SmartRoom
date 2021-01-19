@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import Automation from "../models/Automation";
+import {Subscribable} from "rxjs";
 
 export interface FetchData {
   heater?: number;
@@ -168,7 +169,7 @@ export class ApiDataService {
     return event;
   }
 
-  addAutomation(automation: Automation|any) {
+  addAutomation(automation: Automation|any): Subscribable<Automation> {
     automation.action = [automation.action];
 
     const event = this.http.post(this.currentConfig.url+"/automation/add",

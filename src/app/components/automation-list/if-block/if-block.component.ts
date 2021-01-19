@@ -26,7 +26,6 @@ export class IfBlockComponent implements OnInit {
 
   addIf(ifCondition: If) {
     if(!ifCondition.and) {
-      console.log("Make new");
       ifCondition.and = [];
     }
     ifCondition.and.push(new If());

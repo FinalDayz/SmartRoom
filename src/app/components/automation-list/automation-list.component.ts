@@ -1,17 +1,10 @@
-import {Component, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as M from "materialize-css/dist/js/materialize";
 import Action, {ActionType, DefaultActionData} from "../../models/Action";
 import Automation from "../../models/Automation";
-import If, {ConditionType, InputType} from "../../models/If";
+import If from "../../models/If";
 import {ApiDataService} from "../../services/api-data.service";
 import {Observable} from "rxjs";
-
-export enum Protocol {
-  POST,
-  GET,
-  DELETE,
-  OPTIONS,
-}
 
 @Component({
   selector: 'app-automation-list',
@@ -24,66 +17,15 @@ export class AutomationListComponent implements OnInit {
   public actionTypesData = ActionType;
   public actionTypes = Object.keys(ActionType);
   lessThanValue: any;
+  private savedAutomation?: Automation = null;
 
   constructor(private data: ApiDataService) { }
 
   ngOnInit(): void {
-
-    // const overHeatingNotification = new Automation();
-    // overHeatingNotification.name = "overheating notification";
-    // overHeatingNotification.ifs = [
-    //   {
-    //     input: InputType.temperature,
-    //     condition: ConditionType[">"],
-    //     value: 25,
-    //     and: [
-    //       {
-    //         input: InputType.heater,
-    //         condition: ConditionType["=="],
-    //         value: 1,
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     input: InputType.temperature,
-    //     condition: ConditionType[">"],
-    //     value: 30,
-    //   }
-    //
-    // ];
-    //
-    // overHeatingNotification.ifs.push(new If());
-    //
-    // overHeatingNotification.enabled = true;
-    // overHeatingNotification.action = new Action();
-    // overHeatingNotification.action.type = "notification";
-    // overHeatingNotification.action.data.title = "Overheating!";
-    // overHeatingNotification.action.data.content = "Temperature reached high, please take action!";
-    //
-    // const heaterOnNotification = new Automation();
-    // heaterOnNotification.name = "Heater on notification";
-    // heaterOnNotification.ifs = [
-    //   {
-    //     input: InputType.heater,
-    //     condition: ConditionType["=="],
-    //     value: 1,
-    //   }
-    // ];
-    //
-    // heaterOnNotification.enabled = false;
-    // heaterOnNotification.action = new Action();
-    // heaterOnNotification.action.type = "notification";
-    // heaterOnNotification.action.data.title = "Heater on";
-    // heaterOnNotification.action.data.content = "The heater is turned on";
-    //
-    // this.automations.push(overHeatingNotification);
-    // this.automations.push(heaterOnNotification);
      this.data.automationPromise.then((automations: Array<Automation>) => {
-       console.log("GOT AUTOMATION LIST");
        this.automations = automations;
-
        this.timeoutInit();
-       console.log(automations);
+
      });
   };
 
@@ -126,31 +68,47 @@ export class AutomationListComponent implements OnInit {
     this.timeoutInit();
   }
 
-  save(automation: Automation) {
-    let event;
-    if(automation.id) {
-      event = this.data.modifyAutomation(automation);
-    } else {
-      event = this.data.addAutomation(automation);
-    }
-    this.handleRequest(event);
+  add(automation: Automation) {
+    this.data.addAutomation(automation)
+      .subscribe(newAutomation => {
+        automation.id = newAutomation.id;
+      M.toast({
+        html: 'Created automation \'' + automation.name+'\'',
+      });
+    });
   }
 
   delete(automation: Automation) {
     let event = this.data.deleteAutomation(automation);
     this.automations.splice(this.automations.indexOf(automation), 1);
-    this.handleRequest(event);
+    this.handleRequest(event)
+      .then(() => {
+        M.toast({
+          html: 'Deleted automation \'' + automation.name+'\'',
+        });
+      });
   }
 
   private handleRequest(event: Observable<Object>) {
-    event.subscribe( res => {
-      this.ngOnInit();
+    return new Promise((acc, rej) => {
+      event.subscribe( res => {
+        this.ngOnInit();
+        acc();
+      });
     });
   }
 
   changeForm(automation: Automation) {
     if(automation.id) {
-
+      this.add(automation);
+      this.savedAutomation = automation;
+      M.toast({
+        html: 'Saved automation',
+        displayLength: 1000,
+      });
+      setTimeout(() => {
+        this.savedAutomation = null;
+      }, 200);
     }
   }
 }

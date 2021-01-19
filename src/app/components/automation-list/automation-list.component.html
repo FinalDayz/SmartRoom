@@ -2,7 +2,7 @@
 
 <ul class="collapsible">
   <li *ngFor="let automation of automations">
-    <div class="collapsible-header">
+    <div class="collapsible-header automation-body" [class.saved-automation-body]="savedAutomation===automation">
       {{ automation.name }}
       <span *ngIf="automation.enabled" class="new badge" data-badge-caption="Enabled"></span>
       <span *ngIf="!automation.enabled" class="new badge red" data-badge-caption="Disabled"></span>
@@ -83,7 +83,7 @@
       </span>
         </div>
         <div class="col s12">
-          <a *ngIf="!automation.id" class="waves-effect waves-light btn save-automation" (click)="save(automation)">Save automation</a>&nbsp;
+          <a *ngIf="!automation.id" class="waves-effect waves-light btn save-automation" (click)="add(automation)">Save automation</a>&nbsp;
           <a class="waves-effect waves-light btn save-automation red" (click)="delete(automation)">Delete automation</a>
         </div>
       </form>
