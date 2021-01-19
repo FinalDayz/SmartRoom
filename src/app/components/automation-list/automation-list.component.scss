@@ -1,3 +1,5 @@
+@import '../../colors';
+
 .save-automation {
   margin-bottom: 20px;
 }
@@ -9,4 +11,8 @@
 
 .automation-body {
   transition: background-color 0.2s;
+}
+
+.action-block {
+  border-left: 1px solid $secondary-color;
 }

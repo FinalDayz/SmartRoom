@@ -6,5 +6,5 @@ export default class Automation {
   name: string;
   enabled: boolean;
   ifs: Array<If>;
-  action: Action
+  actions:  Array<Action>
 }

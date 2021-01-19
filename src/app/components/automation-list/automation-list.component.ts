@@ -25,7 +25,7 @@ export class AutomationListComponent implements OnInit {
      this.data.automationPromise.then((automations: Array<Automation>) => {
        this.automations = automations;
        this.timeoutInit();
-
+       console.log(automations);
      });
   };
 
@@ -41,9 +41,9 @@ export class AutomationListComponent implements OnInit {
     M.updateTextFields();
   }
 
-  changeAction(automation: Automation, event) {
-    automation.action.type = event.target.value;
-    automation.action.data = DefaultActionData[automation.action.type];
+  changeAction(automation: Automation, action: Action, event) {
+    action.type = event.target.value;
+    action.data = DefaultActionData[action.type];
   }
 
   ngAfterContentInit() {
@@ -61,7 +61,7 @@ export class AutomationListComponent implements OnInit {
   addNew() {
     const newAutomation = new Automation();
     newAutomation.ifs = [];
-    newAutomation.action = new Action();
+    newAutomation.actions = [new Action()];
     newAutomation.enabled = true;
     newAutomation.name = "New automation";
     this.automations.push(newAutomation);

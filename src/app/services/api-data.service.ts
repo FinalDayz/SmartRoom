@@ -140,7 +140,8 @@ export class ApiDataService {
 
   private decodeAutomation(automation: any) {
     automation.ifs = JSON.parse(automation.ifs);
-    automation.action = JSON.parse(automation.action)[0];
+    // automation.action = JSON.parse(automation.action)[0];
+    automation.actions = JSON.parse(automation.action);
 
     return automation;
   }
@@ -155,7 +156,7 @@ export class ApiDataService {
   }
 
   modifyAutomation(automation: Automation|any) {
-    automation.action = [automation.action];
+    // automation.action = [automation.action];
 
     const event = this.http.put(this.currentConfig.url+"/automation/modify/"+automation.id,
       JSON.stringify(automation),
@@ -165,12 +166,12 @@ export class ApiDataService {
         }
       });
 
-    automation.action = automation.action[0];
+    // automation.action = automation.action[0];
     return event;
   }
 
   addAutomation(automation: Automation|any): Subscribable<Automation> {
-    automation.action = [automation.action];
+    // automation.action = [automation.action];
 
     const event = this.http.post(this.currentConfig.url+"/automation/add",
       JSON.stringify(automation),
@@ -180,7 +181,7 @@ export class ApiDataService {
       }
     });
 
-    automation.action = automation.action[0];
+    // automation.action = automation.action[0];
     return event;
   }
 

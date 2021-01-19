@@ -32,58 +32,62 @@
 
           </div>
 
-          <p class="col s12">Condition(s)</p>
+          <h5 class="col s12">Condition(s)</h5>
         </div>
         <app-if-block [id]="automation.id" [ifArr]="automation.ifs" [depth]="1"></app-if-block>
         <a class="btn col s12" (click)="addIf(automation.ifs)">+ OR</a>
 
         <p class="col s12 no-margin">&nbsp;</p>
-        <div class="input-field col s12" *ngIf="automation.action">
-          <select [(ngModel)]="automation.action.type" (change)="changeAction(automation, $event)"
-                  [ngModelOptions]="{standalone: true}">
-            <option value=""></option>
-            <option *ngFor="let type of actionTypes"
-                    value="{{type}}"
-                    [selected]="automation.action && automation.action.type && type==automation.action.type">
-              {{type}}
-            </option>
-          </select>
-          <label>Action if condition is true</label>
-        </div>
-        <div class="col s12 row">
-        <span *ngIf="automation.action && automation.action.type">
-          <div class="col s12" *ngFor="let actionData of actionTypesData[automation.action.type]  | keyvalue">
-            <div [ngSwitch]="actionData.value">
+        <div *ngFor="let action of automation.actions" class="action-block row col s12">
+          <h5 class="col s12">Action(s)</h5>
+          <div class="input-field col s12">
+            <select [(ngModel)]="action.type" (change)="changeAction(automation, action, $event)"
+                    [ngModelOptions]="{standalone: true}">
+              <option value=""></option>
+              <option *ngFor="let type of actionTypes"
+                      value="{{type}}"
+                      [selected]="action && action.type && type==action.type">
+                {{type}}
+              </option>
+            </select>
+            <label>Action type</label>
+          </div>
+          <div class="col s12 row">
+          <span *ngIf="action && action.type">
+            <div class="col s12" *ngFor="let actionData of actionTypesData[action.type]  | keyvalue">
+              <div [ngSwitch]="actionData.value">
 
-              <div class="switch" *ngSwitchCase="'boolean'">
-                <p>
-                  <label for="data_bool_{{actionData.key}}">
-                    {{actionData.key}}
+                <div class="switch" *ngSwitchCase="'boolean'">
+                  <p>
+                    <label for="data_bool_{{actionData.key}}">
+                      {{actionData.key}}
+                    </label>
+                  </p>
+                  <label>
+                    Off
+                    <input type="checkbox" id="data_bool_{{actionData.key}}"
+                           [checked]="!!action.data[actionData.key]"
+                           (change)="action.data[actionData.key] = !action.data[actionData.key]">
+                    <span class="lever"></span>
+                    On
                   </label>
-                </p>
-                <label>
-                  Off
-                  <input type="checkbox" id="data_bool_{{actionData.key}}"
-                         [checked]="!!automation.action.data[actionData.key]"
-                         (change)="automation.action.data[actionData.key] = !automation.action.data[actionData.key]">
-                  <span class="lever"></span>
-                  On
-                </label>
+                </div>
+
+                <div class="input-field" *ngSwitchDefault>
+                  <input placeholder="Placeholder" id="data_input_{{actionData.key}}" type="text" class="validate"
+                         name="data_input_{{actionData.key}}"
+                         [(ngModel)]="action.data[actionData.key]">
+                  <label for="data_input_{{actionData.key}}">{{actionData.key}}</label>
+                </div>
               </div>
 
-              <div class="input-field" *ngSwitchDefault>
-                <input placeholder="Placeholder" id="data_input_{{actionData.key}}" type="text" class="validate"
-                       name="data_input_{{actionData.key}}"
-                       [(ngModel)]="automation.action.data[actionData.key]"
-                >
-                <label for="data_input_{{actionData.key}}">{{actionData.key}}</label>
-              </div>
-            </div>
-        </div>
-      </span>
+          </div>
+        </span>
+          </div>
         </div>
         <div class="col s12">
-          <a *ngIf="!automation.id" class="waves-effect waves-light btn save-automation" (click)="add(automation)">Save automation</a>&nbsp;
+          <a *ngIf="!automation.id" class="waves-effect waves-light btn save-automation" (click)="add(automation)">Save
+            automation</a>&nbsp;
           <a class="waves-effect waves-light btn save-automation red" (click)="delete(automation)">Delete automation</a>
         </div>
       </form>
