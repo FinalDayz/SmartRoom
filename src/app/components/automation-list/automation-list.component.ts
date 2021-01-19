@@ -79,11 +79,11 @@ export class AutomationListComponent implements OnInit {
     // this.automations.push(overHeatingNotification);
     // this.automations.push(heaterOnNotification);
      this.data.automationPromise.then((automations: Array<Automation>) => {
-
+       console.log("GOT AUTOMATION LIST");
        this.automations = automations;
 
        this.timeoutInit();
-       console.log(automations[0]);
+       console.log(automations);
      });
   };
 
@@ -146,5 +146,11 @@ export class AutomationListComponent implements OnInit {
     event.subscribe( res => {
       this.ngOnInit();
     });
+  }
+
+  changeForm(automation: Automation) {
+    if(automation.id) {
+
+    }
   }
 }

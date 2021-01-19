@@ -2,6 +2,7 @@
   <div class="ifBlock row col s12">
     <div class="input-field col m12 l6">
       <select [(ngModel)]="ifCheck.input" [ngModelOptions]="{standalone: true}">
+        <option value=""></option>
         <option *ngFor="let input of inputTypes"
                 value="{{input}}"
                 [selected]="input==inputTypes[ifCheck.input]">
@@ -14,6 +15,7 @@
     <div class="input-field col m12 l3">
       <select [(ngModel)]="ifCheck.condition"
               [ngModelOptions]="{standalone: true}">
+        <option value=""></option>
         <option *ngFor="let condition of conditionTypes"
                 value="{{condition}}"
                 [selected]="condition.toString()==conditionTypes[ifCheck.condition]">

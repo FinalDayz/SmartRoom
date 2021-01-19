@@ -182,4 +182,16 @@ export class ApiDataService {
     automation.action = automation.action[0];
     return event;
   }
+
+  changeHeater(state: boolean) {
+    this.liveData.heater = state ? 1 : 0;
+    this.http.post('http://api.smartroom.codeweb.nl/set/heater',
+      {
+        key: localStorage.getItem('key'),
+        heater: state
+      })
+      .subscribe((data: FetchData) => {
+        this.gotData(data);
+      });
+  }
 }

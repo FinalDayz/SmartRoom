@@ -1,21 +1,21 @@
 <h3>Automations</h3>
-<form>
-  <ul class="collapsible">
-    <li *ngFor="let automation of automations">
-      <div class="collapsible-header">
-        {{ automation.name }}
 
-        <span *ngIf="automation.enabled" class="new badge" data-badge-caption="Enabled"></span>
-        <span *ngIf="!automation.enabled" class="new badge red" data-badge-caption="Disabled"></span>
-      </div>
-      <div class="collapsible-body row">
+<ul class="collapsible">
+  <li *ngFor="let automation of automations">
+    <div class="collapsible-header">
+      {{ automation.name }}
+      <span *ngIf="automation.enabled" class="new badge" data-badge-caption="Enabled"></span>
+      <span *ngIf="!automation.enabled" class="new badge red" data-badge-caption="Disabled"></span>
+    </div>
+    <div class="collapsible-body row">
+      <form (change)="this.changeForm(automation)">
         <div class="col s12 row">
-        <div class="col s12 m6">
-          <label for="automation_{{automation.id}}_name">Name automation</label>
-          <input placeholder="Name" id="automation_{{automation.id}}_name" type="text" class="validate"
-                 name="automation_{{automation.id}}_name"
-                 [value]="automation.name" [(ngModel)]="automation.name" name="automation_{{automation.id}}_name">
-        </div>
+          <div class="col s12 m6">
+            <label for="automation_{{automation.id}}_name">Name automation</label>
+            <input placeholder="Name" id="automation_{{automation.id}}_name" type="text" class="validate"
+                   name="automation_{{automation.id}}_name"
+                   [value]="automation.name" [(ngModel)]="automation.name" name="automation_{{automation.id}}_name">
+          </div>
           <div class="col s12 m6">
             <div class="switch">
               <p>
@@ -37,8 +37,7 @@
         <app-if-block [id]="automation.id" [ifArr]="automation.ifs" [depth]="1"></app-if-block>
         <a class="btn col s12" (click)="addIf(automation.ifs)">+ OR</a>
 
-        <br/>
-        <p>&nbsp;</p>
+        <p class="col s12 no-margin">&nbsp;</p>
         <div class="input-field col s12" *ngIf="automation.action">
           <select [(ngModel)]="automation.action.type" (change)="changeAction(automation, $event)"
                   [ngModelOptions]="{standalone: true}">
@@ -76,7 +75,7 @@
                 <input placeholder="Placeholder" id="data_input_{{actionData.key}}" type="text" class="validate"
                        name="data_input_{{actionData.key}}"
                        [(ngModel)]="automation.action.data[actionData.key]"
-                       >
+                >
                 <label for="data_input_{{actionData.key}}">{{actionData.key}}</label>
               </div>
             </div>
@@ -84,11 +83,11 @@
       </span>
         </div>
         <div class="col s12">
-          <a class="waves-effect waves-light btn save-automation" (click)="save(automation)">Save automation</a>&nbsp;
+          <a *ngIf="!automation.id" class="waves-effect waves-light btn save-automation" (click)="save(automation)">Save automation</a>&nbsp;
           <a class="waves-effect waves-light btn save-automation red" (click)="delete(automation)">Delete automation</a>
         </div>
-      </div>
-    </li>
-  </ul>
-</form>
+      </form>
+    </div>
+  </li>
+</ul>
 <a class="waves-effect waves-light btn" (click)="addNew()">Add</a>
