@@ -19,18 +19,19 @@ export class AutomationListComponent implements OnInit {
   lessThanValue: any;
   private savedAutomation?: Automation = null;
 
-  constructor(private data: ApiDataService) { }
+  constructor(private data: ApiDataService) {
+  }
 
   ngOnInit(): void {
-     this.data.automationPromise.then((automations: Array<Automation>) => {
-       this.automations = automations;
-       this.timeoutInit();
-       console.log(automations);
-     });
+    this.data.automationPromise.then((automations: Array<Automation>) => {
+      this.automations = automations;
+      this.timeoutInit();
+      console.log(automations);
+    });
   };
 
   addIf(ifArray: Array<If>) {
-    if(!ifArray) {
+    if (!ifArray) {
       ifArray = [];
     }
     ifArray.push(new If());
@@ -48,7 +49,7 @@ export class AutomationListComponent implements OnInit {
 
   ngAfterContentInit() {
     M.AutoInit();
-   this.timeoutInit();
+    this.timeoutInit();
   }
 
   timeoutInit() {
@@ -73,10 +74,10 @@ export class AutomationListComponent implements OnInit {
     this.data.addAutomation(automation)
       .subscribe(newAutomation => {
         automation.id = newAutomation.id;
-      M.toast({
-        html: 'Created automation \'' + automation.name+'\'',
+        M.toast({
+          html: 'Created automation \'' + automation.name + '\'',
+        });
       });
-    });
   }
 
   delete(automation: Automation) {
@@ -85,14 +86,14 @@ export class AutomationListComponent implements OnInit {
     this.handleRequest(event)
       .then(() => {
         M.toast({
-          html: 'Deleted automation \'' + automation.name+'\'',
+          html: 'Deleted automation \'' + automation.name + '\'',
         });
       });
   }
 
   private handleRequest(event: Observable<Object>) {
     return new Promise((acc, rej) => {
-      event.subscribe( res => {
+      event.subscribe(res => {
         this.ngOnInit();
         acc();
       });
@@ -100,15 +101,21 @@ export class AutomationListComponent implements OnInit {
   }
 
   changeForm(automation: Automation) {
-    if(automation.id) {
-      this.savedAutomation = automation;
-      M.toast({
-        html: 'Saved automation',
-        displayLength: 1000,
+    console.log(automation);
+    if (automation.id) {
+
+      this.handleRequest(
+        this.data.modifyAutomation(automation)
+      ).then(() => {
+        this.savedAutomation = automation;
+        M.toast({
+          html: 'Saved automation',
+          displayLength: 1000,
+        });
+        setTimeout(() => {
+          this.savedAutomation = null;
+        }, 200);
       });
-      setTimeout(() => {
-        this.savedAutomation = null;
-      }, 200);
     }
   }
 }
