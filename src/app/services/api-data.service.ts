@@ -141,7 +141,7 @@ export class ApiDataService {
   private decodeAutomation(automation: any) {
     automation.ifs = JSON.parse(automation.ifs);
     // automation.action = JSON.parse(automation.action)[0];
-    automation.actions = JSON.parse(automation.action);
+    automation.actions = JSON.parse(automation.actions);
 
     return automation;
   }

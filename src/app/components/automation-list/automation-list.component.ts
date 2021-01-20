@@ -69,6 +69,7 @@ export class AutomationListComponent implements OnInit {
   }
 
   add(automation: Automation) {
+    console.log(automation);
     this.data.addAutomation(automation)
       .subscribe(newAutomation => {
         automation.id = newAutomation.id;
@@ -100,7 +101,6 @@ export class AutomationListComponent implements OnInit {
 
   changeForm(automation: Automation) {
     if(automation.id) {
-      this.add(automation);
       this.savedAutomation = automation;
       M.toast({
         html: 'Saved automation',
