@@ -70,7 +70,6 @@ export class AutomationListComponent implements OnInit {
   }
 
   add(automation: Automation) {
-    console.log(automation);
     this.data.addAutomation(automation)
       .subscribe(newAutomation => {
         automation.id = newAutomation.id;
@@ -101,7 +100,6 @@ export class AutomationListComponent implements OnInit {
   }
 
   changeForm(automation: Automation) {
-    console.log(automation);
     if (automation.id) {
 
       this.handleRequest(
@@ -117,5 +115,18 @@ export class AutomationListComponent implements OnInit {
         }, 200);
       });
     }
+  }
+
+  removeAction(automation: Automation, action: Action) {
+    automation.actions.splice(automation.actions.indexOf(action), 1);
+    this.changeForm(automation)
+  }
+
+  addAction(automation: Automation) {
+    if(!automation.actions) {
+      automation.actions = [];
+    }
+    automation.actions.push(new Action());
+    this.timeoutInit();
   }
 }

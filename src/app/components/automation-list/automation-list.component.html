@@ -10,37 +10,56 @@
     <div class="collapsible-body row">
       <form (change)="this.changeForm(automation)">
         <div class="col s12 row">
-          <div class="col s12 m6">
+          <blockquote class="col s12">
+            <h5>Automation options</h5>
+          </blockquote>
+
+          <div class="col s12 m5">
             <label for="automation_{{automation.id}}_name">Name automation</label>
             <input placeholder="Name" id="automation_{{automation.id}}_name" type="text" class="validate"
                    name="automation_{{automation.id}}_name"
                    [value]="automation.name" [(ngModel)]="automation.name" name="automation_{{automation.id}}_name">
           </div>
-          <div class="col s12 m6">
+          <div class="col s6 m3">
             <div class="switch">
               <p>
                 <label for="automation_{{automation.id}}_enabled">Enabled</label>
               </p>
               <label>
-                Off
                 <input type="checkbox" id="automation_{{automation.id}}_enabled"
                        [checked]="!!automation.enabled" (change)="automation.enabled = !automation.enabled">
                 <span class="lever"></span>
-                On
               </label>
             </div>
-
           </div>
 
-          <h5 class="col s12">Condition(s)</h5>
+          <div class="col s6 m4">
+            <a class="waves-effect waves-light btn save-automation red" (click)="delete(automation)">Delete
+              automation</a>
+          </div>
         </div>
+
+        <div class="col s12 row">
+          <blockquote class="col s12">
+            <h5>Condition(s)</h5>
+          </blockquote>
+        </div>
+
         <app-if-block [id]="automation.id" [ifArr]="automation.ifs" [depth]="1"></app-if-block>
         <a class="btn col s12" (click)="addIf(automation.ifs)">+ OR</a>
 
         <p class="col s12 no-margin">&nbsp;</p>
+        <div class="col s12 row">
+          <blockquote class="col s12">
+            <h5>
+              Action(s)&nbsp;&nbsp;
+              <a class="waves-effect waves-light btn-small" (click)="addAction(automation)">+</a>
+            </h5>
+          </blockquote>
+        </div>
+
         <div *ngFor="let action of automation.actions" class="action-block row col s12">
-          <h5 class="col s12">Action(s)</h5>
-          <div class="input-field col s12">
+          <div class="input-field col s10">
             <select [(ngModel)]="action.type" (change)="changeAction(automation, action, $event)"
                     [ngModelOptions]="{standalone: true}">
               <option value=""></option>
@@ -52,43 +71,42 @@
             </select>
             <label>Action type</label>
           </div>
+          <div class="col s2">
+            <a class="waves-effect waves-light btn-small red" (click)="removeAction(automation, action)">x</a>
+          </div>
           <div class="col s12 row">
-          <span *ngIf="action && action.type">
-            <div class="col s12" *ngFor="let actionData of actionTypesData[action.type]  | keyvalue">
-              <div [ngSwitch]="actionData.value">
-
-                <div class="switch" *ngSwitchCase="'boolean'">
-                  <p>
-                    <label for="data_bool_{{actionData.key}}">
-                      {{actionData.key}}
+            <div style="display:inline" *ngIf="action && action.type">
+              <div class="col s12" *ngFor="let actionData of actionTypesData[action.type]  | keyvalue">
+                <div [ngSwitch]="actionData.value">
+                  <div class="switch" *ngSwitchCase="'boolean'">
+                    <p>
+                      <label for="data_bool_{{actionData.key}}">
+                        {{actionData.key}}
+                      </label>
+                    </p>
+                    <label>
+                      <input type="checkbox" id="data_bool_{{actionData.key}}"
+                             [checked]="!!action.data[actionData.key]"
+                             (change)="action.data[actionData.key] = !action.data[actionData.key]">
+                      <span class="lever"></span>
                     </label>
-                  </p>
-                  <label>
-                    Off
-                    <input type="checkbox" id="data_bool_{{actionData.key}}"
-                           [checked]="!!action.data[actionData.key]"
-                           (change)="action.data[actionData.key] = !action.data[actionData.key]">
-                    <span class="lever"></span>
-                    On
-                  </label>
-                </div>
+                  </div>
 
-                <div class="input-field" *ngSwitchDefault>
-                  <input placeholder="Placeholder" id="data_input_{{actionData.key}}" type="text" class="validate"
-                         name="data_input_{{actionData.key}}"
-                         [(ngModel)]="action.data[actionData.key]">
-                  <label for="data_input_{{actionData.key}}">{{actionData.key}}</label>
+                  <div class="input-field" *ngSwitchDefault>
+                    <input placeholder="Placeholder" id="data_input_{{actionData.key}}" type="text" class="validate"
+                           name="data_input_{{actionData.key}}"
+                           [(ngModel)]="action.data[actionData.key]">
+                    <label for="data_input_{{actionData.key}}">{{actionData.key}}</label>
+                  </div>
                 </div>
               </div>
-
-          </div>
-        </span>
+            </div>
           </div>
         </div>
+
         <div class="col s12">
           <a *ngIf="!automation.id" class="waves-effect waves-light btn save-automation" (click)="add(automation)">Save
             automation</a>&nbsp;
-          <a class="waves-effect waves-light btn save-automation red" (click)="delete(automation)">Delete automation</a>
         </div>
       </form>
     </div>
