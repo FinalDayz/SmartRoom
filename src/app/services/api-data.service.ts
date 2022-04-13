@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import Automation from "../models/Automation";
 import {Subscribable} from "rxjs";
 
@@ -21,10 +21,9 @@ interface Config {
   providedIn: 'root'
 })
 
-
 export class ApiDataService {
 
-  public static  readonly valerieConfig: Config = {
+  public static readonly valerieConfig: Config = {
     url: "http://api.monitor-room.codeweb.nl",
     hasAutomations: false,
   };
@@ -64,15 +63,13 @@ export class ApiDataService {
   }
 
   private fetchAutomations() {
-    this.http.get(this.currentConfig.url+"/automation/all", {
-      headers: {
-        "Authorization": localStorage.getItem('key')
-      }
-    })
+    this.http.get(this.currentConfig.url + "/automation/all",
+      this.getRequestOptions()
+    )
       .subscribe((data: Array<Automation>) => {
         this.automations = data;
         const decodedAutomations = [];
-        for(const automation of this.automations) {
+        for (const automation of this.automations) {
           decodedAutomations.push(this.decodeAutomation(automation));
         }
 
@@ -81,11 +78,9 @@ export class ApiDataService {
   }
 
   private fetchData(): void {
-    this.http.get(this.currentConfig.url, {
-      headers: {
-        "Authorization": localStorage.getItem('key')
-      }
-    })
+    this.http.get(this.currentConfig.url,
+      this.getRequestOptions()
+    )
       .subscribe((data: FetchData) => {
         this.liveData = data;
       });
@@ -111,11 +106,11 @@ export class ApiDataService {
     return this.liveData.pressure;
   }
 
-  getToxicGas(): number|null {
+  getToxicGas(): number | null {
     return this.liveData.gas;
   }
 
-  getLastConnection(): string|null {
+  getLastConnection(): string | null {
     return this.liveData.lastConnection;
   }
 
@@ -146,52 +141,58 @@ export class ApiDataService {
     return automation;
   }
 
-  deleteAutomation(automation: Automation) {
-    return this.http.delete(this.currentConfig.url+"/automation/delete/"+automation.id,
-      {
-        headers: {
-          "Authorization": localStorage.getItem('key')
-        }
-      });
+  private getRequestOptions(extraData?: {
+    headers?: HttpHeaders | {
+      [header: string]: string | string[];
+    };
+    observe?: 'body';
+    params?: HttpParams | {
+      [param: string]: string | string[];
+    };
+    reportProgress?: boolean;
+    responseType?: 'json';
+    withCredentials?: boolean;
+  }) {
+    return {
+      ...extraData,
+      headers: {
+        "Authorization": localStorage.getItem('key'),
+        ...extraData?.headers
+      },
+    };
   }
 
-  modifyAutomation(automation: Automation|any) {
-    // automation.action = [automation.action];
+  deleteAutomation(automation: Automation) {
+    return this.http.delete(this.currentConfig.url + "/automation/delete/" + automation.id,
+      this.getRequestOptions()
+    );
+  }
 
-    const event = this.http.put(this.currentConfig.url+"/automation/modify/"+automation.id,
+  modifyAutomation(automation: Automation) {
+    const event = this.http.put(this.currentConfig.url + "/automation/modify/" + automation.id,
       JSON.stringify(automation),
-      {
-        headers: {
-          "Authorization": localStorage.getItem('key')
-        }
-      });
+      this.getRequestOptions());
 
-    // automation.action = automation.action[0];
     return event;
   }
 
-  addAutomation(automation: Automation|any): Subscribable<Automation> {
-    // automation.action = [automation.action];
-
-    const event = this.http.post(this.currentConfig.url+"/automation/add",
+  addAutomation(automation: Automation): Subscribable<Automation> {
+    const event = this.http.post(this.currentConfig.url + "/automation/add",
       JSON.stringify(automation),
-      {
-      headers: {
-        "Authorization": localStorage.getItem('key')
-      }
-    });
+      this.getRequestOptions()
+    );
 
-    // automation.action = automation.action[0];
     return event;
   }
 
   changeHeater(state: boolean) {
     this.liveData.heater = state ? 1 : 0;
-    this.http.post('http://api.smartroom.codeweb.nl/set/heater',
+    this.http.post(this.currentConfig.url + "/set/heater",
       {
-        key: localStorage.getItem('key'),
         heater: state
-      })
+      },
+      this.getRequestOptions()
+    )
       .subscribe((data: FetchData) => {
         this.gotData(data);
       });
