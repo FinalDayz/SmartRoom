@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import Automation from "../models/Automation";
 import {Subscribable} from "rxjs";
+import { isDevMode } from '@angular/core';
 
 export interface FetchData {
   heater?: number;
@@ -64,7 +65,7 @@ export class ApiDataService {
 
   private fetchAutomations() {
     this.http.get(this.currentConfig.url + "/automation/all",
-      this.getRequestOptions()
+      ApiDataService.getRequestOptions()
     )
       .subscribe((data: Array<Automation>) => {
         this.automations = data;
@@ -79,7 +80,7 @@ export class ApiDataService {
 
   private fetchData(): void {
     this.http.get(this.currentConfig.url,
-      this.getRequestOptions()
+      ApiDataService.getRequestOptions()
     )
       .subscribe((data: FetchData) => {
         this.liveData = data;
@@ -118,6 +119,10 @@ export class ApiDataService {
     this.currentConfig = config;
   }
 
+  public getConfig() {
+    return this.currentConfig;
+  }
+
   public setCurrentTab(tab?: string): void {
     switch (tab) {
       case 'stefan':
@@ -141,7 +146,7 @@ export class ApiDataService {
     return automation;
   }
 
-  private getRequestOptions(extraData?: {
+  static getRequestOptions(extraData?: {
     headers?: HttpHeaders | {
       [header: string]: string | string[];
     };
@@ -164,14 +169,14 @@ export class ApiDataService {
 
   deleteAutomation(automation: Automation) {
     return this.http.delete(this.currentConfig.url + "/automation/delete/" + automation.id,
-      this.getRequestOptions()
+      ApiDataService.getRequestOptions()
     );
   }
 
   modifyAutomation(automation: Automation) {
     const event = this.http.put(this.currentConfig.url + "/automation/modify/" + automation.id,
       JSON.stringify(automation),
-      this.getRequestOptions());
+      ApiDataService.getRequestOptions());
 
     return event;
   }
@@ -179,7 +184,7 @@ export class ApiDataService {
   addAutomation(automation: Automation): Subscribable<Automation> {
     const event = this.http.post(this.currentConfig.url + "/automation/add",
       JSON.stringify(automation),
-      this.getRequestOptions()
+      ApiDataService.getRequestOptions()
     );
 
     return event;
@@ -191,7 +196,7 @@ export class ApiDataService {
       {
         heater: state
       },
-      this.getRequestOptions()
+      ApiDataService.getRequestOptions()
     )
       .subscribe((data: FetchData) => {
         this.gotData(data);
